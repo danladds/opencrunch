@@ -11,17 +11,12 @@
     <script src="{% static 'ocaccounts/modernizr.min.js' %}"></script>
     <script src="{% static 'ocaccounts/jquery-3.3.1.js' %}"></script>
     <script src="{% static 'ocaccounts/jquery-ui-1.12.1.custom/jquery-ui.js' %}"></script>
-    
-      <script>
-      // Init stuff here
-	  $( function() {
-	    $( ".widget input[type=submit], .widget a, .widget button, .btn" ).button();
-	  } );
-	  </script>
+    <script src="{% static 'ocaccounts/ocaccounts.js' %}"></script>
 
     <title>{% block title %}Accounts Dashboard{% endblock %}</title>
 </head>
 <body>
+	<div id="modal"></div>
     <div class="overwrap clearfix">
 	    <menu class="top-menu clearfix">
 	    	<p>Welcome back, {{ user.first_name }} <a href="{% url 'ocaccounts:logout' %}">Logout</a></p>

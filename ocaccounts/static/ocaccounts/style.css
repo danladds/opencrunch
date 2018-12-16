@@ -88,12 +88,19 @@ body {
 
 /* Standard forms */
 
-input[type=text], #topbox input[type=password], input[type=email] {
-  background-color: whitesmoke;
+input[type=text], #topbox input[type=password], input[type=email], input[type=date], input[type=number], textarea, select {
+  background-color: transparent;
   border: none;
   color: black;
   padding: 0px;
   border-bottom: 1px dashed grey;
+  height: 1.2em;
+  padding: 0.2em;
+}
+
+textarea {
+  height: 1.2em;
+  padding: 0.2em;
 }
 
 .pane {
@@ -262,3 +269,74 @@ input[type=text], #topbox input[type=password], input[type=email] {
 #entities-history table tr td:last-child {
   text-align: right;
 }
+
+.categories-list {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.categories-list tr td {
+  position: relative;
+}
+
+.cat-label {
+  width: 96%;
+  top: 0.5em;
+  left: 3%;
+  right: 3%;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 #fff;
+  position: absolute;
+  text-align: left;
+}
+
+.cat-label span {
+  float: right;
+  text-align: right;
+  padding-right: 3%;
+}
+
+.categories-list .ui-progressbar-value {
+  background-color: #ddffdd;
+}
+
+.contact-list li span.ui-icon {
+  float: none;
+  padding-right: 3em;
+  font-size: 1.2em;
+  margin-top: -0.3em;
+}
+
+body .ui-dialog-titlebar {
+  background-color: #00A7FF;
+  color: white;
+  text-shadow: 1px 1px black;
+  box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.75);
+}
+
+body .ui-dialog {
+  background-color: #ddffff;
+}
+
+.new-purchase {
+  
+}
+
+body .ui-dialog table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+body .ui-dialog table tr {
+
+}
+
+body .ui-dialog table th {
+  text-align: left;
+  text-shadow: 1px 1px grey;
+}
+
+body .ui-dialog input[type=submit]{
+  margin-top: 1em;
+}
+

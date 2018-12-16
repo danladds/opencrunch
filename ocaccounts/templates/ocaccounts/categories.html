@@ -1,1 +1,50 @@
 {% extends "ocaccounts/outer.html" %}
+
+{% block leftcontent %}
+<h3>This Week</h3>
+<table class="categories-list">
+	{% for c in category_week %}
+	<tr>
+		<td>
+			<div id="percent-{{ c.id }}" class="cat-percent">
+				<div id="percent-{{ c.id }}-label" class="cat-label">{{ c.name }}<span>15€ of {{ c.budget }}</span></div>
+			</div>
+			</td>
+	</tr>
+	{% endfor %}
+</table>
+
+<h3>This Month</h3>
+<table class="categories-list">
+	{% for c in category_month %}
+	<tr>
+		<td>
+			<div id="percent-{{ c.id }}" class="cat-percent">
+				<div id="percent-{{ c.id }}-label" class="cat-label">{{ c.name }}<span>15€ of {{ c.budget }}</span></div>
+			</div>
+			</td>
+	</tr>
+	{% endfor %}
+</table>
+
+<h3>This Year</h3>
+<table class="categories-list">
+	{% for c in category_year %}
+	<tr>
+		<td>
+			<div id="percent-{{ c.id }}" class="cat-percent">
+				<div id="percent-{{ c.id }}-label" class="cat-label">{{ c.name }}<span>15€ of {{ c.budget }}</span></div>
+			</div>
+			</td>
+	</tr>
+	{% endfor %}
+</table>
+{% endblock leftcontent %}
+
+{% block rightcontent %}
+<script>
+$( ".cat-percent" ).progressbar({
+    value: 50
+});
+</script>
+{% endblock rightcontent %}

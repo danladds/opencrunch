@@ -15,9 +15,18 @@
 {% block rightcontent %}
 	<div id="dash-tasks">
 		<ul class="blockmenu">
-			<li class="dash-tasks-purchase"><a href="{% url 'ocaccounts:newpurchase' %}"><span class="ui-icon ui-icon-box"></span>New Purchase</a></li>
-			<li class="dash-tasks-payment"><a href="{% url 'ocaccounts:newpayment' %}"><span class="ui-icon ui-icon-creditcard"></span>New Payment</a></li>
-			<li class="dash-tasks-statement"><a href="{% url 'ocaccounts:importstatement' %}"><span class="ui-icon ui-icon-file-table"></span>Import Statement</a></li>
+			<li class="dash-tasks-purchase">
+				<a href="{% url 'ocaccounts:newpurchase' %}" class="modal" title="New Purchase">
+					<span class="ui-icon ui-icon-box"></span>New Purchase</a>
+			</li>
+			<li class="dash-tasks-payment">
+				<a href="{% url 'ocaccounts:newpayment' %}" class="modal" title="New Payment">
+					<span class="ui-icon ui-icon-creditcard"></span>New Payment</a>
+			</li>
+			<li class="dash-tasks-statement">
+				<a href="{% url 'ocaccounts:importstatement' %}" class="modal" title="Import Statement">
+					<span class="ui-icon ui-icon-file-table"></span>Import Statement</a>
+			</li>
 		</ul>
 	</div>
 {% endblock rightcontent %}

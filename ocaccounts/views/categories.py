@@ -10,5 +10,7 @@ from ocaccounts.models.fundamentals import Category
 class Categories(LoginRequiredMixin, View):
     def get(self, request):
         return HttpResponse(render(request, 'ocaccounts/categories.html', {
-            'category-list': Category.objects.order_by('name')
+            'category_week': Category.objects.filter(budgetPeriod='W').order_by('name'),
+            'category_month': Category.objects.filter(budgetPeriod='M').order_by('name'),
+            'category_year': Category.objects.filter(budgetPeriod='Y').order_by('name'),
         }))

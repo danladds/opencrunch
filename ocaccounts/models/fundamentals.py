@@ -1,13 +1,15 @@
 from django.db.models import Model, CharField, BooleanField, DecimalField, PROTECT, ForeignKey, DateField, TextField
 from django.template.defaultfilters import default
+from polymorphic.models import PolymorphicModel
 
 # Basic financial objects
 
-class Entity(Model):
+class Entity(PolymorphicModel):
     class Meta:
         verbose_name_plural = 'Entities'
     
-    name = CharField(max_length=80)
+    name = CharField(max_length=90)
+    icon = CharField(max_length=90, default='person')
     fav = BooleanField(default=False)
     openingBal = DecimalField(max_digits=12, decimal_places=2)
     
@@ -45,7 +47,7 @@ class Invoice(Model):
 
 # Unipolar, always registers a deducation from balance with payee
 # Someone charging us for something
-class Charge(Model):
+class Charge(PolymorphicModel):
     description = TextField(max_length=1000)
     quantity = DecimalField(max_digits=12, decimal_places=2)
     payee = ForeignKey(Entity, on_delete=PROTECT, related_name='charges')
@@ -75,5 +77,8 @@ class Category(Model):
     name = CharField(max_length=255)
     budget = DecimalField(max_digits=10, decimal_places=2)
     budgetPeriod = CharField(max_length=1, choices=BUDGET_PERIODS)
+    
+    def __str__(self):
+        return self.name
     
     
