@@ -106,3 +106,4 @@ venv.bak/
 # mypy
 .mypy_cache/
 >>>>>>> branch 'master' of https://github.com/danladds/opencrunch.git
+/colours
