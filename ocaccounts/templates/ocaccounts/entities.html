@@ -1,0 +1,88 @@
+{% extends "ocaccounts/outer.html" %}
+
+{% block leftcontent %}
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">Summary</a></li>
+    <li><a href="#tabs-2">All</a></li>
+  </ul>
+  <div id="tabs-1">
+  	<div id="entities-favs" class="box">
+		<ul class="contact-list">
+		{% for e in favs %}
+			<li class="e-{{ e.status }}" id="f{{ e.id }}">{{ e.name }} <span>{{ e.balance }}€</span></li>
+		{% endfor %}
+		</ul>
+	</div>
+	<div id="entities-creditors">
+		<ul class="contact-list">
+		{% for e in creditors %}
+			<li class="e-{{ e.status }}" id="c{{ e.id }}">{{ e.name }} <span>{{ e.balance }}€</span></li>
+		{% endfor %}
+		</ul>
+	</div>
+	<div id="entities-debtors">
+		<ul class="contact-list">
+		{% for e in debtors %}
+			<li class="e-{{ e.status }}" id="d{{ e.id }}">{{ e.name }} <span>{{ e.balance }}€</span></li>
+		{% endfor %}
+		</ul>
+	</div>
+  </div>
+  <div id="tabs-2">
+  	<div id="entities-other">
+		<ul class="contact-list">
+		{% for e in all %}
+			<li class="e-{{ e.status }}" id="{{ e.id }}">{{ e.name }} <span>{{ e.balance }}€</span></li>
+		{% endfor %}
+		</ul>
+	</div>
+  </div>
+</div>
+{% endblock leftcontent %}
+
+{% block rightcontent %}
+	<div id="entities-history">
+		<table>
+			<tr class="entities-history-template">
+				<td>_date_</td>
+				<td>_description_</td>
+				<td>_amount_</td>
+				<td>_balance_</td>
+			</tr>
+		</table>
+	</div>
+	
+	<script>
+	  $( function() {
+	  	$( "#tabs" ).tabs();
+	  	
+	  	template = $('.entities-history-template');
+		template.detach();
+	  	
+	  	$('.contact-list li').click(function(e) {
+	  		id = e.currentTarget.id.replace('f', '').replace('d', '').replace('c', '');
+	  		$('#entities-history table').children().remove();
+	  		
+	  		$.getJSON("{% url 'ocaccounts:balance' 0 %}".replace('0', id), function(data) {
+	  			
+	  			$.each(data.items, function(index, charge) {
+	  				t = template.clone();
+	  				fields = [charge.date, charge.description, charge.quantity, charge.balance]
+	  				
+	  				t.children().each(function(idx, elem){
+	  					
+	  					$(elem).text(
+	  						fields[idx]
+	  					);
+	  				});
+	  				
+	  	  			$('#entities-history table').append(t);
+	  			});
+	  		});
+	  	});
+	  	
+	  });
+	</script>
+{% endblock rightcontent %}
+

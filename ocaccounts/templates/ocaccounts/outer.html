@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'ocaccounts/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'ocaccounts/jquery-ui-1.12.1.custom/jquery-ui.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'ocaccounts/jquery-ui-1.12.1.custom/jquery-ui.theme.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'ocaccounts/jquery-ui-iconfont/jquery-ui-1.12.icon-font.css' %}" />
+    <script src="{% static 'ocaccounts/modernizr.min.js' %}"></script>
+    <script src="{% static 'ocaccounts/jquery-3.3.1.js' %}"></script>
+    <script src="{% static 'ocaccounts/jquery-ui-1.12.1.custom/jquery-ui.js' %}"></script>
+    
+      <script>
+      // Init stuff here
+	  $( function() {
+	    $( ".widget input[type=submit], .widget a, .widget button, .btn" ).button();
+	  } );
+	  </script>
+
+    <title>{% block title %}Accounts Dashboard{% endblock %}</title>
+</head>
+<body>
+    <div class="overwrap clearfix">
+	    <menu class="top-menu clearfix">
+	    	<p>Welcome back, {{ user.first_name }} <a href="{% url 'ocaccounts:logout' %}">Logout</a></p>
+	        <ul class="clearfix">
+	            <li><a href="{% url 'ocaccounts:dashboard' %}"><span class="ui-icon ui-icon-home"></span>Dashboard</a></li>
+	            <li><a href="{% url 'ocaccounts:entities' %}"><span class="ui-icon ui-icon-calculator"></span>Balances</a></li>
+	            <li><a href="{% url 'ocaccounts:categories' %}"><span class="ui-icon ui-icon-calendar"></span>Budgets</a></li>
+	            <li><a href="{% url 'ocaccounts:reports' %}"><span class="ui-icon ui-icon-chart-bars"></span>Reports</a></li>
+	        </ul>
+	    </menu>
+	    {% block topcontent %}
+	    {% endblock topcontent %}
+
+	    <div id="leftpane" class="pane">
+	    {% block leftcontent %}
+	    {% endblock leftcontent %}
+	    </div>
+	    <div id="rightpane" class="pane">
+	    {% block rightcontent %}
+	    {% endblock rightcontent %}
+	    </div>
+    </div>
+</body>
+</html>
