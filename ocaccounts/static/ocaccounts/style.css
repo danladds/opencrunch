@@ -249,13 +249,42 @@ textarea {
 }
 
 #entities-history {
-  background-color: #d9d9d9;
+  background-color: #ddddff;
   padding: 1em;
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.55);
 }
 
 #entities-history table {
   width: 100%;
   border-collapse: collapse;
+}
+
+#entities-history table tr th {
+  text-align: left;
+}
+
+#entities-history table tr th:nth-child(3){
+  text-align: right;
+}
+
+#entities-history table tr th:nth-child(4){
+  text-align: right;
+}
+
+#entities-history table tr td:nth-child(3){
+  text-align: right;
+}
+
+#entities-history table tr td:nth-child(4){
+  text-align: right;
+}
+
+#entities-history table tr td:nth-child(3):after{
+  content: ' €'
+}
+
+#entities-history table tr td:nth-child(4):after{
+  content: ' €'
 }
 
 #entities-history table tr {

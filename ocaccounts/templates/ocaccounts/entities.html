@@ -10,21 +10,21 @@
   	<div id="entities-favs" class="box">
 		<ul class="contact-list">
 		{% for e in favs %}
-			<li class="e-{{ e.status }}" id="f{{ e.id }}"><span class="ui-icon ui-icon-{{ e.icon }}"></span>{{ e.name }} <span>{{ e.balance }}€</span></li>
+			<li class="e-{{ e.status }}" id="f{{ e.id }}"><span class="ui-icon ui-icon-{{ e.icon }}"></span>{{ e.name }} <span>{{ e.balance }} €</span></li>
 		{% endfor %}
 		</ul>
 	</div>
 	<div id="entities-creditors">
 		<ul class="contact-list">
 		{% for e in creditors %}
-			<li class="e-{{ e.status }}" id="c{{ e.id }}"><span class="ui-icon ui-icon-{{ e.icon }}"></span>{{ e.name }} <span>{{ e.balance }}€</span></li>
+			<li class="e-{{ e.status }}" id="c{{ e.id }}"><span class="ui-icon ui-icon-{{ e.icon }}"></span>{{ e.name }} <span>{{ e.balance }} €</span></li>
 		{% endfor %}
 		</ul>
 	</div>
 	<div id="entities-debtors">
 		<ul class="contact-list">
 		{% for e in debtors %}
-			<li class="e-{{ e.status }}" id="d{{ e.id }}"><span class="ui-icon ui-icon-{{ e.icon }}"></span>{{ e.name }} <span>{{ e.balance }}€</span></li>
+			<li class="e-{{ e.status }}" id="d{{ e.id }}"><span class="ui-icon ui-icon-{{ e.icon }}"></span>{{ e.name }} <span>{{ e.balance }} €</span></li>
 		{% endfor %}
 		</ul>
 	</div>
@@ -33,7 +33,7 @@
   	<div id="entities-other">
 		<ul class="contact-list">
 		{% for e in all %}
-			<li class="e-{{ e.status }}" id="{{ e.id }}"><span class="ui-icon ui-icon-{{ e.icon }}"></span>{{ e.name }} <span>{{ e.balance }}€</span></li>
+			<li class="e-{{ e.status }}" id="{{ e.id }}"><span class="ui-icon ui-icon-{{ e.icon }}"></span>{{ e.name }} <span>{{ e.balance }} €</span></li>
 		{% endfor %}
 		</ul>
 	</div>
@@ -44,6 +44,12 @@
 {% block rightcontent %}
 	<div id="entities-history">
 		<table>
+			<tr>
+				<th>Date</th>
+				<th>Description</th>
+				<th>Amount</th>
+				<th>Balance</th>
+			</tr>
 			<tr class="entities-history-template">
 				<td>_date_</td>
 				<td>_description_</td>
@@ -52,37 +58,5 @@
 			</tr>
 		</table>
 	</div>
-	
-	<script>
-	  $( function() {
-	  	$( "#tabs" ).tabs();
-	  	
-	  	template = $('.entities-history-template');
-		template.detach();
-	  	
-	  	$('.contact-list li').click(function(e) {
-	  		id = e.currentTarget.id.replace('f', '').replace('d', '').replace('c', '');
-	  		$('#entities-history table').children().remove();
-	  		
-	  		$.getJSON("{% url 'ocaccounts:balance' 0 %}".replace('0', id), function(data) {
-	  			
-	  			$.each(data.items, function(index, charge) {
-	  				t = template.clone();
-	  				fields = [charge.date, charge.description, charge.quantity, charge.balance]
-	  				
-	  				t.children().each(function(idx, elem){
-	  					
-	  					$(elem).text(
-	  						fields[idx]
-	  					);
-	  				});
-	  				
-	  	  			$('#entities-history table').append(t);
-	  			});
-	  		});
-	  	});
-	  	
-	  });
-	</script>
 {% endblock rightcontent %}
 
