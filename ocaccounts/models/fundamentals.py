@@ -47,6 +47,7 @@ class Entity(PolymorphicModel):
                 'date': None, 
                 'invoice': None,
                 'description': 'Opening Balance',
+                'category': 'None',
                 'balance': self.balance,
             })
         
@@ -55,28 +56,34 @@ class Entity(PolymorphicModel):
             if (isinstance(i, Transaction) and i.source == self):
                 self.balance = self.balance - i.quantity
                 eList.insert(0, {
+                    'id': i.id,
                     'quantity': -i.quantity, 
-                    'date': i.dateMade.strftime('%B %d, %Y'), 
+                    'date': i.dateMade.strftime('%d %b %y'), 
                     'invoice': i.invoice.id if (i.invoice is not None) else 0,
                     'description': i.description + ' (to ' + i.sink.name + ')',
+                    'category': i.category.name if (i.category is not None) else 'None',
                     'balance': self.balance,
                 })
             elif(isinstance(i, Transaction)):
                 self.balance = self.balance + i.quantity
                 eList.insert(0, {
+                    'id': i.id,
                     'quantity': i.quantity, 
-                    'date': i.dateMade.strftime('%B %d, %Y'), 
+                    'date': i.dateMade.strftime('%d %b %y'), 
                     'invoice': i.invoice.id if (i.invoice is not None) else 0,
                     'description': i.description + ' (from ' + i.source.name + ')',
+                    'category': i.category.name if (i.category is not None) else 'None',
                     'balance': self.balance,
                 })
             else:
                 self.balance = self.balance - i.quantity
                 eList.insert(0, {
+                    'id': i.id,
                     'quantity': -i.quantity, 
-                    'date': i.dateMade.strftime('%B %d, %Y'), 
+                    'date': i.dateMade.strftime('%d %b %y'), 
                     'invoice': i.invoice.id if (i.invoice is not None) else 0,
                     'description': i.description,
+                    'category': i.category.name if (i.category is not None) else 'None',
                     'balance': self.balance,
                 })
             
