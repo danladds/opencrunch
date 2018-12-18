@@ -7,7 +7,7 @@
 	<tr>
 		<td>
 			<div id="percent-{{ c.id }}" class="cat-percent">
-				<div id="percent-{{ c.id }}-label" class="cat-label">{{ c.name }}<span>15€ of {{ c.budget }}</span></div>
+				<div id="percent-{{ c.id }}-label" class="cat-label" percent="{{ c.spendPercentCapped }}">{{ c.name }}<span>{{ c.getSpend }} € of {{ c.budget }}</span></div>
 			</div>
 			</td>
 	</tr>
@@ -20,7 +20,7 @@
 	<tr>
 		<td>
 			<div id="percent-{{ c.id }}" class="cat-percent">
-				<div id="percent-{{ c.id }}-label" class="cat-label">{{ c.name }}<span>15€ of {{ c.budget }}</span></div>
+				<div id="percent-{{ c.id }}-label" class="cat-label" percent="{{ c.spendPercentCapped }}">{{ c.name }}<span>{{ c.getSpend }} € of {{ c.budget }}</span></div>
 			</div>
 			</td>
 	</tr>
@@ -33,7 +33,7 @@
 	<tr>
 		<td>
 			<div id="percent-{{ c.id }}" class="cat-percent">
-				<div id="percent-{{ c.id }}-label" class="cat-label">{{ c.name }}<span>15€ of {{ c.budget }}</span></div>
+				<div id="percent-{{ c.id }}-label" class="cat-label" percent="{{ c.spendPercentCapped }}">{{ c.name }}<span>{{ c.getSpend }} € of {{ c.budget }}</span></div>
 			</div>
 			</td>
 	</tr>
@@ -43,8 +43,16 @@
 
 {% block rightcontent %}
 <script>
-$( ".cat-percent" ).progressbar({
-    value: 50
+$(function() {
+	$( ".cat-percent" ).each(function(idx, item) {
+		
+		var c = $(item).children()
+		a = parseFloat(c.attr('percent'))
+		
+		$(item).progressbar({
+			value: a,
+		})
+	})
 });
 </script>
 {% endblock rightcontent %}

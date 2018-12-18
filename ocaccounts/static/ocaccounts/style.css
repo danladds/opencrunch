@@ -302,6 +302,8 @@ textarea {
 .categories-list {
   width: 100%;
   border-collapse: collapse;
+  box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.55);
+  background-color: #666;
 }
 
 .categories-list tr td {
@@ -325,8 +327,17 @@ textarea {
   padding-right: 3%;
 }
 
+.categories-list .ui-progressbar {
+  background-color: #eeffee;
+}
+
 .categories-list .ui-progressbar-value {
-  background-color: #ddffdd;
+  background-color: #AAeeAA;
+  box-shadow: inset 2px 2px 1px 0px rgba(255,255,255,0.65);
+}
+
+.categories-list .ui-progressbar-complete {
+  background-color: #ffaaaa;
 }
 
 .contact-list li span.ui-icon {

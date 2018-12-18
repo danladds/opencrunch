@@ -1,7 +1,8 @@
-from django.db.models import Model, CharField, BooleanField, DecimalField, PROTECT, ForeignKey, DateField, TextField
+from django.db.models import Model, CharField, BooleanField, DecimalField, PROTECT, ForeignKey, DateField, TextField, Sum
 from django.template.defaultfilters import default
 from polymorphic.models import PolymorphicModel
 from django.db.models.query_utils import Q
+from datetime import datetime
 
 # Basic financial objects
 
@@ -107,11 +108,77 @@ class Invoice(Model):
     def __str__(self):
         return self.issuer.name + ' - ' + self.date.strftime('%B %d, %Y')
 
+class Category(Model):
+    class Meta:
+        verbose_name_plural = 'Categories'
+    
+    BUDGET_PERIODS = (
+        ('L', 'Lifetime'),
+        ('Y', 'Yearly'),
+        ('M', 'Monthly'),
+        ('W', 'Weekly'),
+        ('D', 'Daily')
+    )
+    
+    PERIOD_FILTERS = (
+        ('L', lambda self: (self.charge_set.instance_of(Charge))),
+        ('Y', lambda self: (self.charge_set.instance_of(Charge).filter(dateMade__year=datetime.now().year))),
+        ('M', lambda self: (self.charge_set.instance_of(Charge).filter(dateMade__month=datetime.now().month))),
+        ('W', lambda self: (self.charge_set.instance_of(Charge).filter(dateMade__year=datetime.now().year))),
+        ('D', lambda self: (self.charge_set.instance_of(Charge).filter(dateMade__year=datetime.now().year))),
+    )
+    
+    name = CharField(max_length=255)
+    budget = DecimalField(max_digits=10, decimal_places=2)
+    budgetPeriod = CharField(max_length=1, choices=BUDGET_PERIODS)
+    
+    def getSpend(self, period=''):
+        period = self.budgetPeriod if (period == '') else period
+        total = dict(self.PERIOD_FILTERS)[period](self).aggregate(Sum('quantity'))['quantity__sum']
+        
+        return total if total is not None else 0
+    
+    def scaleBudget(self, period):
+        budget = self.budget
+        
+        if(period == self.budgetPeriod):
+            return budget
+        
+        period = self.budgetPeriod if (period == '') else period
+        if (budget == period): return budget
+        if (period == 'L' or self.budgetPeriod == 'L'): return 0
+        # Lifetime can't be scaled to anything else for infinity reasons
+        
+        if(self.period == 'M'): budget = budget / 12
+        if(self.period == 'W'): budget = budget / 52
+        if(self.period == 'D'): budget = budget / 365
+    
+        if(period == 'M'): budget = budget / 12
+        if(period == 'W'): budget = budget / 52
+        if(period == 'D'): budget = budget / 365
+        
+        # Caveat - obviously this returns an average
+        return budget
+    
+    def spendPercent(self, period=''):
+        period = self.budgetPeriod if (period == '') else period
+        
+        return (self.getSpend(period) / self.scaleBudget(period)) * 100
+    
+    def spendPercentCapped(self, period=''):
+        pc = self.spendPercent(period)
+        
+        return pc if (pc < 100) else 100
+    
+    def __str__(self):
+        return self.name
+
 # Unipolar, always registers a deducation from balance with payee
 # Someone charging us for something
 class Charge(PolymorphicModel):
     description = TextField(max_length=1000)
     quantity = DecimalField(max_digits=12, decimal_places=2)
+    category = ForeignKey(Category, on_delete=PROTECT, blank=True, null=True)
     
     # Always where the value is debited from
     source = ForeignKey(Entity, on_delete=PROTECT, related_name='source_set')
@@ -126,24 +193,7 @@ class Charge(PolymorphicModel):
 class Transaction(Charge):
     # Where the value is credited
     sink = ForeignKey(Entity, on_delete=PROTECT, related_name='sink_set')
+    category = None
 
-class Category(Model):
-    class Meta:
-        verbose_name_plural = 'Categories'
-    
-    BUDGET_PERIODS = (
-        ('L', 'Lifetime'),
-        ('Y', 'Yearly'),
-        ('M', 'Monthly'),
-        ('W', 'Weekly'),
-        ('D', 'Daily')
-    )
-    
-    name = CharField(max_length=255)
-    budget = DecimalField(max_digits=10, decimal_places=2)
-    budgetPeriod = CharField(max_length=1, choices=BUDGET_PERIODS)
-    
-    def __str__(self):
-        return self.name
     
     
