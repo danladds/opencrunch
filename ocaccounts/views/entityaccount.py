@@ -12,7 +12,9 @@ class EntityAccount(LoginRequiredMixin, View):
     def get(self, request, pk):
         
         entity = get_object_or_404(Entity, pk=pk)
+        entity.updateBalance()
         
         return JsonResponse({
+            'balance' : entity.balance,
             'items': entity.getChargeList(),
         })

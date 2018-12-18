@@ -10,21 +10,26 @@
   	<div id="entities-favs" class="box">
 		<ul class="contact-list">
 		{% for e in favs %}
-			<li class="e-{{ e.status }}" id="f{{ e.id }}"><span class="ui-icon ui-icon-{{ e.icon }}"></span>{{ e.name }} <span>{{ e.balance }} €</span></li>
+			<li class="e-{{ e.status }} id_{{ e.id }}" id="f{{ e.id }}">
+				<span class="ui-icon ui-icon-{{ e.icon }}"></span>{{ e.name }} <span class="ent-bal">{{ e.balance }} €</span>
+			</li>
 		{% endfor %}
 		</ul>
 	</div>
 	<div id="entities-creditors">
 		<ul class="contact-list">
 		{% for e in creditors %}
-			<li class="e-{{ e.status }}" id="c{{ e.id }}"><span class="ui-icon ui-icon-{{ e.icon }}"></span>{{ e.name }} <span>{{ e.balance }} €</span></li>
+			<li class="e-{{ e.status }} id_{{ e.id }}" id="c{{ e.id }}">
+			<span class="ui-icon ui-icon-{{ e.icon }}"></span>{{ e.name }} <span class="ent-bal">{{ e.balance }} €</span>
+		</li>
 		{% endfor %}
 		</ul>
 	</div>
 	<div id="entities-debtors">
 		<ul class="contact-list">
 		{% for e in debtors %}
-			<li class="e-{{ e.status }}" id="d{{ e.id }}"><span class="ui-icon ui-icon-{{ e.icon }}"></span>{{ e.name }} <span>{{ e.balance }} €</span></li>
+			<li class="e-{{ e.status }} id_{{ e.id }}" id="d{{ e.id }}"><span class="ui-icon ui-icon-{{ e.icon }}"></span>{{ e.name }} <span class="ent-bal">{{ e.balance }} €</span>
+		</li>
 		{% endfor %}
 		</ul>
 	</div>
@@ -33,7 +38,8 @@
   	<div id="entities-other">
 		<ul class="contact-list">
 		{% for e in all %}
-			<li class="e-{{ e.status }}" id="{{ e.id }}"><span class="ui-icon ui-icon-{{ e.icon }}"></span>{{ e.name }} <span>{{ e.balance }} €</span></li>
+			<li class="e-{{ e.status }} id_{{ e.id }}" id="{{ e.id }}"><span class="ui-icon ui-icon-{{ e.icon }}"></span>{{ e.name }} <span class="ent-bal">{{ e.balance }} €</span>
+		</li>
 		{% endfor %}
 		</ul>
 	</div>
