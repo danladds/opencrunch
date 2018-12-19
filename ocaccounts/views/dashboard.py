@@ -5,14 +5,28 @@ from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template import loader
 from django.urls import reverse_lazy
+from ocaccounts.models.fundamentals import Entity, Category
+from decimal import Decimal, ROUND_UP
 
 class Dashboard(LoginRequiredMixin, View):
     def get(self, request):
         
-        safespend = 1200
-        totalbalance = 3122
+        totalbalance = Decimal('0.00')
+        totalBudget = Decimal('0.00')
+        totalSpend = Decimal('0.00')
+        remainingBudget = Decimal('0.00')
+        
+        for entity in Entity.objects.all():
+            totalbalance = totalbalance + entity.balance
+        
+        for category in Category.objects.all():
+            if (category.budgetPeriod == 'L'): continue
+            totalBudget = category.scaleBudget(('M')) + totalBudget
+            totalSpend = category.getSpend('M') + totalSpend
+            
+        remainingBudget = totalBudget - totalSpend
         
         return HttpResponse(render(request, 'ocaccounts/dashboard.html', {
-            'safespend' : safespend, 
+            'safespend' : remainingBudget.quantize(Decimal('0'), rounding=ROUND_UP), 
             'totalbalance' : totalbalance
         }))

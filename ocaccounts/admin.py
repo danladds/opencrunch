@@ -16,13 +16,13 @@ class ChargeChildAdmin(PolymorphicChildModelAdmin):
         }),
     )
     
-class TransactionAdmin(ChargeChildAdmin):
-    base_model = Transaction
-
-class ChargeAdmin(PolymorphicParentModelAdmin):
-    base_model = Charge
-    child_models = (Transaction,)
-    list_filter = (PolymorphicChildModelFilter,)
-    
-admin.site.register(Transaction, TransactionAdmin)
-admin.site.register(Charge, ChargeAdmin)
+# class TransactionAdmin(ChargeChildAdmin):
+#    base_model = Transaction
+#
+#class ChargeAdmin(PolymorphicParentModelAdmin):
+#    base_model = Charge
+#    child_models = (Transaction,)
+#    list_filter = (PolymorphicChildModelFilter,)
+#    
+#admin.site.register(Transaction, TransactionAdmin)
+#admin.site.register(Charge, ChargeAdmin)

@@ -7,7 +7,8 @@
 	<tr>
 		<td>
 			<div id="percent-{{ c.id }}" class="cat-percent">
-				<div id="percent-{{ c.id }}-label" class="cat-label" percent="{{ c.spendPercentCapped }}">{{ c.name }}<span>{{ c.getSpend }} € of {{ c.budget }}</span></div>
+				<div id="percent-{{ c.id }}-label" class="cat-label" percent="{{ c.spendPercentCapped }}">{{ c.name }}
+				<span>{{ c.getSpend }} € of {{ c.budget }} ({{ c.remainingBudget }} € remaining)</span></div>
 			</div>
 			</td>
 	</tr>
@@ -20,12 +21,14 @@
 	<tr>
 		<td>
 			<div id="percent-{{ c.id }}" class="cat-percent">
-				<div id="percent-{{ c.id }}-label" class="cat-label" percent="{{ c.spendPercentCapped }}">{{ c.name }}<span>{{ c.getSpend }} € of {{ c.budget }}</span></div>
+				<div id="percent-{{ c.id }}-label" class="cat-label" percent="{{ c.spendPercentCapped }}">{{ c.name }}
+				<span>{{ c.getSpend }} € of {{ c.budget }} ({{ c.remainingBudget }} € remaining)</span></div>
 			</div>
 			</td>
 	</tr>
 	{% endfor %}
 </table>
+<p class="oob"><a href="{% url 'ocaccounts:outofbudget' %}">Out of budget: {{ out_of_budget }} €</a></p>
 
 <h3>This Year</h3>
 <table class="categories-list">
@@ -33,7 +36,8 @@
 	<tr>
 		<td>
 			<div id="percent-{{ c.id }}" class="cat-percent">
-				<div id="percent-{{ c.id }}-label" class="cat-label" percent="{{ c.spendPercentCapped }}">{{ c.name }}<span>{{ c.getSpend }} € of {{ c.budget }}</span></div>
+				<div id="percent-{{ c.id }}-label" class="cat-label" percent="{{ c.spendPercentCapped }}">{{ c.name }}
+				<span>{{ c.getSpend }} € of {{ c.budget }} ({{ c.remainingBudget }} € remaining)</span></div>
 			</div>
 			</td>
 	</tr>

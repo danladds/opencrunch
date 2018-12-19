@@ -106,8 +106,7 @@ textarea {
 .pane {
   margin-top: 2em;
   float: left;
-  width: 48%;
-  margin-right: 1%;
+  width: 47%;
   padding-left: 1%;
 }
 
@@ -162,8 +161,8 @@ textarea {
 
 .dash-stats-budget td {
   background-color: #7A8FFF;
-  color: whitesmoke;
-  text-shadow: 1px 1px black;
+  color: black;
+  font-weight: bold;
 }
 
 .dash-stats-balance th {
@@ -174,8 +173,8 @@ textarea {
 
 .dash-stats-balance td {
   background-color: #A87AFF;
-  color: whitesmoke;
-  text-shadow: 1px 1px black;
+  color: black;
+  font-weight: bold;
 }
 
 .blockmenu {
@@ -402,4 +401,32 @@ body .ui-dialog input, select, textarea {
 
 .charge-delete {
 	cursor: pointer;
+}
+
+#out-of-budget table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.75);
+}
+
+#out-of-budget th {
+  text-align: left;
+  padding: 0.5em;
+}
+
+#out-of-budget td {
+  padding: 0.4em;
+  border: 1px solid #ccc;
+}
+
+#out-of-budget td:nth-child(4) {
+  text-align: right;
+}
+
+#out-of-budget th:nth-child(4) {
+  text-align: right;
+}
+
+#out-of-budget td:nth-child(4):after {
+  content: " €"
 }

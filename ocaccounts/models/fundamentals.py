@@ -3,6 +3,7 @@ from django.template.defaultfilters import default
 from polymorphic.models import PolymorphicModel
 from django.db.models.query_utils import Q
 from datetime import datetime
+from decimal import Decimal
 
 # Basic financial objects
 
@@ -131,7 +132,7 @@ class Category(Model):
         ('L', lambda self: (self.charge_set.instance_of(Charge))),
         ('Y', lambda self: (self.charge_set.instance_of(Charge).filter(dateMade__year=datetime.now().year))),
         ('M', lambda self: (self.charge_set.instance_of(Charge).filter(dateMade__month=datetime.now().month))),
-        ('W', lambda self: (self.charge_set.instance_of(Charge).filter(dateMade__year=datetime.now().year))),
+        ('W', lambda self: (self.charge_set.instance_of(Charge).filter(dateMade__week=datetime.now().isocalendar()[1]))),
         ('D', lambda self: (self.charge_set.instance_of(Charge).filter(dateMade__year=datetime.now().year))),
     )
     
@@ -145,6 +146,13 @@ class Category(Model):
         
         return total if total is not None else 0
     
+    def remainingBudget(self, period=''):
+        period = self.budgetPeriod if (period == '') else period
+        budget = self.scaleBudget(period)
+        spend = self.getSpend(period)
+        
+        return budget - spend
+    
     def scaleBudget(self, period):
         budget = self.budget
         
@@ -156,13 +164,13 @@ class Category(Model):
         if (period == 'L' or self.budgetPeriod == 'L'): return 0
         # Lifetime can't be scaled to anything else for infinity reasons
         
-        if(self.period == 'M'): budget = budget / 12
-        if(self.period == 'W'): budget = budget / 52
-        if(self.period == 'D'): budget = budget / 365
+        if(self.budgetPeriod == 'M'): budget = budget * Decimal('12.00')
+        if(self.budgetPeriod == 'W'): budget = budget * Decimal('52.00')
+        if(self.budgetPeriod == 'D'): budget = budget * Decimal('365.00')
     
-        if(period == 'M'): budget = budget / 12
-        if(period == 'W'): budget = budget / 52
-        if(period == 'D'): budget = budget / 365
+        if(period == 'M'): budget = budget / Decimal('12.00')
+        if(period == 'W'): budget = budget / Decimal('52.00')
+        if(period == 'D'): budget = budget / Decimal('365.00')
         
         # Caveat - obviously this returns an average
         return budget
@@ -183,7 +191,7 @@ class Category(Model):
 # Unipolar, always registers a deducation from balance with payee
 # Someone charging us for something
 class Charge(PolymorphicModel):
-    description = TextField(max_length=1000)
+    description = TextField(max_length=1000, blank=True)
     quantity = DecimalField(max_digits=12, decimal_places=2)
     category = ForeignKey(Category, on_delete=PROTECT, blank=True, null=True)
     
@@ -191,6 +199,8 @@ class Charge(PolymorphicModel):
     source = ForeignKey(Entity, on_delete=PROTECT, related_name='source_set')
     dateMade = DateField('Date Made')
     invoice = ForeignKey(Invoice, on_delete=PROTECT, blank=True, null=True)
+    
+    gift = BooleanField(default=False)
     
     def __str__(self):
         return (self.description[:77] + '..') if len(self.description) > 80 else self.description
