@@ -6,7 +6,8 @@
 
 {% endblock leftcontent %}
 
-{% block rightcontent %}
+{% block topcontent %}
+<div id="category-wrap">
 <h3>This Week</h3>
 <table class="categories-list">
 	{% for c in category_week %}
@@ -34,7 +35,6 @@
 	</tr>
 	{% endfor %}
 </table>
-<p class="oob"><a href="{% url 'ocaccounts:outofbudget' %}">Out of budget: {{ out_of_budget }} €</a></p>
 
 <h3>This Year</h3>
 <table class="categories-list">
@@ -49,10 +49,11 @@
 	</tr>
 	{% endfor %}
 </table>
+</div>
 
 <script>
 $(function() {
 	Opencrunch.Categories.showPercentage();
 });
 </script>
-{% endblock rightcontent %}
+{% endblock topcontent %}

@@ -489,3 +489,13 @@ body .ui-dialog input, select, textarea {
 	padding-right: 0.5em;
 }
 
+#category-wrap {
+  width: 70%;
+  margin: 1em auto;
+}
+
+#category-wrap h3 {
+  text-shadow: 1px 1px 0 #ccc;
+  width: 100%;
+  border-bottom: 2px solid black;
+}
