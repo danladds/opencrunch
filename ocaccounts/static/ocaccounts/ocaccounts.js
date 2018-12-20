@@ -21,7 +21,7 @@ var Opencrunch = {
 					});
 				},
 				
-				loadContent : function(url, data) {
+				loadContent : function(url, data, title) {
 					
 					var action = 'POST';
 					if (data == null) action = 'GET';
@@ -31,15 +31,14 @@ var Opencrunch = {
 						data : data,
 						type : action,
 						success : function(result) {
-							modal.html(result)
+							Opencrunch.Window.Modal.modal.html(result);
+							Opencrunch.Window.Modal.prepContent(title);
 						}
 					});
-					
-					Opencrunch.Window.Modal.prepContent();
 				},
 				
-				prepContent : function () {
-					this.modal.dialog('option', 'title', e.currentTarget.title);
+				prepContent : function (title) {
+					this.modal.dialog('option', 'title', title);
 					this.modal.dialog('open');
 					this.modal.find("input[type=submit]").button();
 					this.modal.find("#id_dateMade").attr('type', 'date');
@@ -69,9 +68,7 @@ var Opencrunch = {
 			modalLinkClick : function (e) {
 				e.preventDefault();
 				
-				Opencrunch.Window.Modal.loadContent(e.currentTarget.href);
-				
-				
+				Opencrunch.Window.Modal.loadContent(e.currentTarget.href, null, e.currentTarget.title);
 			},
 			
 			chargeDeleteClick : function (e){
