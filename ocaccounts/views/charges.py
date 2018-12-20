@@ -5,10 +5,14 @@ from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template import loader
 from django.urls import reverse_lazy
-from ocaccounts.models.fundamentals import Entity, Charge, Transaction
+from ocaccounts.models.fundamentals import Entity, Charge, Transaction, Category
 from ..forms import ChargeForm, TransactionForm
 from django.views.generic.base import TemplateView
 from django.http.response import JsonResponse
+import csv
+from ocaccounts.forms.charges import UploadFileForm
+import json
+from io import StringIO
 
 class NewCharge(LoginRequiredMixin, CreateView):
     form_class = ChargeForm
@@ -108,3 +112,63 @@ class DeleteCharge(DeleteView):
 class ImportStatement(View):
     pass
 
+class ChargesDump(LoginRequiredMixin, View):
+    def get(self, request):
+        return HttpResponse(render(request, 'ocaccounts/charges-dump.html', {
+            'all' : Charge.objects.all().order_by('-dateMade', 'id'),
+            'form' : UploadFileForm(),
+        }))
+        
+class ChargesDumpCSV(LoginRequiredMixin, View):
+    def get(self, request):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="charges.csv"'
+        writer = csv.writer(response)
+        
+        for charge in Charge.objects.all().order_by('-dateMade', 'id'):
+            sinkName = charge.sink.name if (isinstance(charge, Transaction)) else ''
+            writer.writerow([
+                charge.dateMade, 
+                charge.description, 
+                charge.quantity, 
+                charge.category.name if (charge.category is not None) else '', 
+                charge.source.name,
+                sinkName,
+                charge.gift
+            ])
+            
+        return response
+    
+class ChargesImportCSV(LoginRequiredMixin, View):
+    def post(self, request):
+        form = UploadFileForm(request.POST, request.FILES)
+        data = ''
+        out = 'Done: '
+        
+        if form.is_valid():
+            
+            data = request.FILES['importFile'].read()
+            f = StringIO(data.decode('utf-8'))
+            reader = csv.reader(f)
+            charge = None
+        
+            for row in reader:
+                if(row[5] == ''):
+                    charge = Charge()
+                else:
+                    charge = Transaction()
+                    charge.sink = Entity.objects.filter(name=row[5]).first()
+                
+                charge.dateMade = row[0]
+                charge.description = row[1]
+                charge.quantity = row[2]
+                charge.category = Category.objects.filter(name=row[3]).first()
+                charge.source = Entity.objects.filter(name=row[4]).first()
+                charge.gift = row[6]
+                
+                charge.save()
+                out = out + '({0}), '.format(charge.id)
+        else: out = json.dumps(form.errors, indent=1)
+            
+        return HttpResponse(out)
+        

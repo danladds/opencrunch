@@ -1,19 +1,26 @@
 {% extends "ocaccounts/outer.html" %}
 
-{% block leftcontent %}
-<table class="report-table">
+{% block topcontent %}
+<table class="report-table" id="report-list">
   <tr>
     <th>Report</th>
     <th>Description</th>
   </tr>
   <tr>
-    <td><a href="{% url 'ocaccounts:outofbudget' %}">Out of budget ({{ out_of_budget }} €)</p></td>
+    <td><a href="{% url 'ocaccounts:outofbudget' %}">Out of budget</a></td>
     <td>Purchases this month that are not included in a budget category</td>
   </tr>
+  <tr>
+    <td><a href="{% url 'ocaccounts:entitiesdump' %}">Entities Table</a></td>
+    <td>View or download full list of accounts and balances</td>
+  </tr>
+  <tr>
+    <td><a href="{% url 'ocaccounts:categoriesdump' %}">Categories Table</a></td>
+    <td>View or download list of budget / accounting categories</td>
+  </tr>
+  <tr>
+    <td><a href="{% url 'ocaccounts:chargesdump' %}">Charge Table</a></td>
+    <td>View or download full list of charges and transactions</td>
+  </tr>
 </table>
-
-{% endblock leftcontent %}
-
-{% block rightcontent %}
-
-{% endblock rightcontent %}
+{% endblock topcontent %}

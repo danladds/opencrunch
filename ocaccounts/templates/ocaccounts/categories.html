@@ -1,6 +1,12 @@
 {% extends "ocaccounts/outer.html" %}
 
+{% block title %}Budget / Category List : Opencruch{% endblock %}
+
 {% block leftcontent %}
+
+{% endblock leftcontent %}
+
+{% block rightcontent %}
 <h3>This Week</h3>
 <table class="categories-list">
 	{% for c in category_week %}
@@ -43,20 +49,10 @@
 	</tr>
 	{% endfor %}
 </table>
-{% endblock leftcontent %}
 
-{% block rightcontent %}
 <script>
 $(function() {
-	$( ".cat-percent" ).each(function(idx, item) {
-		
-		var c = $(item).children()
-		a = parseFloat(c.attr('percent'))
-		
-		$(item).progressbar({
-			value: a,
-		})
-	})
+	Opencrunch.Categories.showPercentage();
 });
 </script>
 {% endblock rightcontent %}

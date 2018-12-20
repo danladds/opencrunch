@@ -33,14 +33,13 @@
 	            <li><a href="{% url 'ocaccounts:reports' %}"><span class="ui-icon ui-icon-chart-bars"></span>Reports</a></li>
 	        </ul>
 	    </menu>
-	    {% block topcontent %}
-	    {% endblock topcontent %}
+	    <div id="toppane" class="clearfix">{% block topcontent %}{% endblock topcontent %}</div>
 
-	    <div id="leftpane" class="pane">
+	    <div id="leftpane" class="pane clearfix">
 	    {% block leftcontent %}
 	    {% endblock leftcontent %}
 	    </div>
-	    <div id="rightpane" class="pane">
+	    <div id="rightpane" class="pane clearfix">
 	    {% block rightcontent %}
 	    {% endblock rightcontent %}
 	    </div>

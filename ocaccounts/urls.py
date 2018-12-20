@@ -1,8 +1,13 @@
 from django.urls import path
-from ocaccounts.views import Dashboard, Entities, Categories, EntityAccount, Reports, OutOfBudget
+from ocaccounts.views import Dashboard, Entities, Categories, EntityAccount, Reports, OutOfBudget, \
+    EntitiesDump
 from django.urls.conf import include
 from ocaccounts.views.charges import NewChargeSuccess, NewCharge, NewTransaction,\
-    DeleteSuccess, DeleteCharge, ImportStatement, NewTransactionSuccess
+    DeleteSuccess, DeleteCharge, ImportStatement, NewTransactionSuccess,\
+    ChargesDump, ChargesDumpCSV, ChargesImportCSV
+from ocaccounts.views.categories import CategoriesDump, CategoriesDumpCSV,\
+    CategoriesImportCSV
+from ocaccounts.views.entities import EntitiesDumpCSV, EntitiesImportCSV
 
 app_name = 'ocaccounts'
 
@@ -21,4 +26,13 @@ urlpatterns = [
     path('charge/delete/<int:pk>/', DeleteCharge.as_view(), name='deletecharge'),
     path('charge/delete/success/', DeleteSuccess.as_view(), name='deletesuccess'),
     path('authentication/', include('django.contrib.auth.urls')),
+    path('entities/dump/', EntitiesDump.as_view(), name='entitiesdump'),
+    path('categories/dump/', CategoriesDump.as_view(), name='categoriesdump'),
+    path('charges/dump/', ChargesDump.as_view(), name='chargesdump'),
+    path('categories/dump/csv/', CategoriesDumpCSV.as_view(), name='categoriesdumpcsv'),
+    path('charges/dump/csv/', ChargesDumpCSV.as_view(), name='chargesdumpcsv'),
+    path('entities/dump/csv/', EntitiesDumpCSV.as_view(), name='entitiesdumpcsv'),
+    path('entities/import/csv/', EntitiesImportCSV.as_view(), name="entitiesimportcsv"),
+    path('charges/import/csv/', ChargesImportCSV.as_view(), name="chargesimportcsv"),
+    path('categories/import/csv/', CategoriesImportCSV.as_view(), name="categoriesimportcsv"),
 ]

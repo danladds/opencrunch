@@ -103,6 +103,16 @@ textarea {
   padding: 0.2em;
 }
 
+#toppane {
+	width: 98%;
+	margin: 1em auto;
+}
+
+#toppane:empty {
+	width: 98%;
+	margin: 0px auto;
+}
+
 #leftpane {
 	width: 35%;
 }
@@ -418,22 +428,6 @@ body .ui-dialog input, select, textarea {
 	cursor: pointer;
 }
 
-#out-of-budget table {
-  width: 100%;
-  border-collapse: collapse;
-  box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.75);
-}
-
-#out-of-budget th {
-  text-align: left;
-  padding: 0.5em;
-}
-
-#out-of-budget td {
-  padding: 0.4em;
-  border: 1px solid #ccc;
-}
-
 #out-of-budget td:nth-child(4) {
   text-align: right;
 }
@@ -450,12 +444,48 @@ body .ui-dialog input, select, textarea {
   width: 100%;
   border-collapse: collapse;
   box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.75);
+  border: 2px solid black;
+}
+
+.report-table th {
+  border-bottom: 1px solid black;
+  text-align: left;
+  padding: 0.5em 0.5em;
 }
 
 .report-table td {
+  border: 1px solid #ccc;
   padding: 0.5em;
 }
 
-.report-table td:nth-child(1){
+.report-table td a {
+  display: block;
+  margin: 1em auto;
+}
+
+.report-table .ui-icon {
+	padding-right: 1em;
+}
+
+#report-list td:nth-child(1){
   width: 12em;
 }
+
+#entities-dump td:nth-child(3), #entities-dump td:nth-child(4),
+#entities-dump th:nth-child(3), #entities-dump th:nth-child(4) {
+	text-align: right;
+	padding-right: 0.5em;
+}
+
+#categories-dump td:nth-child(2), 
+#categories-dump th:nth-child(2) {
+	text-align: right;
+	padding-right: 0.5em;
+}
+
+#charges-dump td:nth-child(3), 
+#charges-dump th:nth-child(3) {
+	text-align: right;
+	padding-right: 0.5em;
+}
+

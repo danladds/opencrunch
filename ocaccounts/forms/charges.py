@@ -39,3 +39,9 @@ class TransactionForm(ModelForm):
     #source = ModelChoiceField(queryset=Entity.objects.all(), label='From Whom')
     #date = DateField(label='Date')
     #invoice = ModelChoiceField(queryset=Invoice.objects.all(), label='Invoice')
+    
+class UploadFileForm(forms.Form):
+    importFile = forms.FileField()
+
+
+
