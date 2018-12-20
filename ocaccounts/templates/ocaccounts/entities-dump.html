@@ -1,0 +1,37 @@
+{% extends "ocaccounts/outer.html" %}
+
+{% block title %}Entities : Reports : Opencruch{% endblock %}
+
+{% block topcontent %}
+		<table id="entities-dump" class="report-table">
+			<tr>
+				<th>Name</th>
+				<th>Favourite</th>
+				<th>Opening Balance</th>
+				<th>Present Balance</th>
+			</tr>
+			{% for entity in all %}
+			<tr class="">
+				<td><span class="ui-icon ui-icon-{{ entity.icon }}"></span> {{ entity.name }}</td>
+				<td>{{ entity.fav }}</td>
+				<td>{{ entity.balance }} €</td>
+				<td>{{ entity.openingBal }} €</td>
+			</tr>
+			{% endfor %}
+			<tr class="">
+				<td><a href="{% url 'ocaccounts:entitiesdumpcsv' %}">Download as CSV</a></td>
+				<td>
+					<form action="{% url 'ocaccounts:entitiesimportcsv' %}" method="post" enctype="multipart/form-data">
+						{% if form.errors %}
+						  <p class="ui-state-error">{{ error_message }}</p>
+						{% endif %}
+						{% csrf_token %}
+						{{ form.as_p }}
+						<input type="submit" value="Import CSV File" />
+					</form>
+				</td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+{% endblock topcontent %}

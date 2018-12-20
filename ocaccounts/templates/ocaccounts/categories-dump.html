@@ -1,0 +1,34 @@
+{% extends "ocaccounts/outer.html" %}
+
+{% block title %}Categories : Reports : Opencruch{% endblock %}
+
+{% block topcontent %}
+		<table id="categories-dump" class="report-table">
+			<tr>
+				<th>Name</th>
+				<th>Budget</th>
+				<th>Budget Period</th>
+			</tr>
+			{% for category in all %}
+			<tr class="">
+				<td>{{ category.name }}</td>
+				<td>{{ category.budget }} €</td>
+				<td>{{ category.budgetPeriod }}</td>
+			</tr>
+			{% endfor %}
+			<tr class="">
+				<td><a href="{% url 'ocaccounts:categoriesdumpcsv' %}">Download as CSV</a></td>
+				<td>
+					<form action="{% url 'ocaccounts:categoriesimportcsv' %}" method="post" enctype="multipart/form-data">
+						{% if form.errors %}
+						  <p class="ui-state-error">{{ error_message }}</p>
+						{% endif %}
+						{% csrf_token %}
+						{{ form.as_p }}
+						<input type="submit" value="Import CSV File" />
+					</form>
+				</td>
+				<td></td>
+			</tr>
+		</table>
+{% endblock topcontent %}

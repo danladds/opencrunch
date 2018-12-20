@@ -1,0 +1,45 @@
+{% extends "ocaccounts/outer.html" %}
+
+{% block title %}Charges : Reports : Opencruch{% endblock %}
+
+{% block topcontent %}
+		<table id="charges-dump" class="report-table">
+			<tr>
+				<th>Date</th>
+				<th>Description</th>
+				<th>Amount</th>
+				<th>Category</th>
+				<th>Source</th>
+				<th>Destination</th>
+				<th>Gift?</th>
+			</tr>
+			{% for charge in all %}
+			<tr class="">
+				<td>{{ charge.dateMade }}</td>
+				<td>{{ charge.description }}</td>
+				<td>{{ charge.quantity }} €</td>
+				<td>{{ charge.category.name }}</td>
+				<td>{{ charge.source }}</td>
+				<td>{{ charge.sink }}</td>
+				<td>{{ charge.gift }}</td>
+			</tr>
+			{% endfor %}
+			<tr class="">
+				<td><a href="{% url 'ocaccounts:chargesdumpcsv' %}">Download as CSV</a></td>
+				<td>
+					<form action="{% url 'ocaccounts:chargesimportcsv' %}" method="post" enctype="multipart/form-data">
+						{% if form.errors %}
+						  <p class="ui-state-error">{{ error_message }}</p>
+						{% endif %}
+						{% csrf_token %}
+						{{ form.as_p }}
+						<input type="submit" value="Import CSV File" />
+					</form>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+{% endblock topcontent %}
