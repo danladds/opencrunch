@@ -30,7 +30,7 @@ class Entity(PolymorphicModel):
     balance = DecimalField(max_digits=12, decimal_places=2)
     
     def getItems(self):
-        return Charge.objects.filter(Q(source = self.id) | Q(Transaction___sink = self.id)).order_by('-dateMade').order_by('id')
+        return Charge.objects.filter(Q(source = self.id) | Q(Transaction___sink = self.id)).order_by('dateMade', 'id')
     
     def updateBalance(self):
         

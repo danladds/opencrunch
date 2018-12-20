@@ -103,10 +103,17 @@ textarea {
   padding: 0.2em;
 }
 
+#leftpane {
+	width: 35%;
+}
+
+#rightpane {
+	width: 58%;
+}
+
 .pane {
   margin-top: 2em;
   float: left;
-  width: 47%;
   padding-left: 1%;
 }
 
@@ -260,6 +267,14 @@ textarea {
 
 #entities-history table tr th {
   text-align: left;
+}
+
+#entities-history table tr th:nth-child(1){
+	width: 6em;	
+}
+
+#entities-history table tr th:nth-child(3){
+	width: 6em;	
 }
 
 #entities-history table tr th:nth-child(3){
@@ -429,4 +444,18 @@ body .ui-dialog input, select, textarea {
 
 #out-of-budget td:nth-child(4):after {
   content: " €"
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.75);
+}
+
+.report-table td {
+  padding: 0.5em;
+}
+
+.report-table td:nth-child(1){
+  width: 12em;
 }

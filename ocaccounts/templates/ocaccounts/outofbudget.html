@@ -1,0 +1,25 @@
+{% extends "ocaccounts/outer.html" %}
+
+{% block leftcontent %}
+	<div id="out-of-budget">
+		<table>
+			<tr>
+				<th>Date</th>
+				<th>Payee</th>
+				<th>Description</th>
+				<th>Amount</th>
+			</tr>
+			{% for charge in charges %}
+			<tr class="">
+				<td>{{ charge.dateMade }}</td>
+				<td>{{ charge.source }}</td>
+				<td>{{ charge.description }}</td>
+				<td>{{ charge.quantity }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
+{% endblock leftcontent %}
+
+{% block rightcontent %}
+{% endblock rightcontent %}

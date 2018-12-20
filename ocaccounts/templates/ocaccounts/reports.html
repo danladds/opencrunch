@@ -1,0 +1,19 @@
+{% extends "ocaccounts/outer.html" %}
+
+{% block leftcontent %}
+<table class="report-table">
+  <tr>
+    <th>Report</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><a href="{% url 'ocaccounts:outofbudget' %}">Out of budget ({{ out_of_budget }} €)</p></td>
+    <td>Purchases this month that are not included in a budget category</td>
+  </tr>
+</table>
+
+{% endblock leftcontent %}
+
+{% block rightcontent %}
+
+{% endblock rightcontent %}

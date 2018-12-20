@@ -1,0 +1,13 @@
+<div class="new-purchase">
+	{% if form.errors %}
+	  <p class="ui-state-error">{{ error_message }}</p>
+	{% endif %}
+	
+	<form action="{% url 'ocaccounts:newpayment' %}" method="post">
+	{% csrf_token %}
+	<table>
+		{{ form.as_table }}
+	</table>
+	<input type="submit" value="Save" />
+	</form>
+</div>
