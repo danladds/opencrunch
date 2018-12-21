@@ -1,0 +1,22 @@
+<table id="charges-list" class="report-table">
+	<tr>
+		<th>Date</th>
+		<th>Description</th>
+		<th>Amount</th>
+		<th>Category</th>
+		<th>From</th>
+		{% if show_trans %}<th>Destination</th>{% endif %}
+		{% if show_gift %}<th>Gift?</th>{% endif %}
+	</tr>
+	{% for charge in all %}
+	<tr class="">
+		<td>{{ charge.dateMade }}</td>
+		<td>{{ charge.description }}</td>
+		<td>{{ charge.quantity }} €</td>
+		<td>{{ charge.category.name }}</td>
+		<td>{{ charge.source }}</td>
+		{% if show_trans %}<td>{{ charge.sink }}</td>{% endif %}
+		{% if show_gift %}<td>{{ charge.gift }}</td>{% endif %}
+	</tr>
+	{% endfor %}
+</table>

@@ -512,3 +512,11 @@ body .ui-dialog input, select, textarea {
   float: none;
 }
 
+#modal .report-table {
+
+}
+
+#modal .report-table td {
+  padding: 0.4em;
+}
+

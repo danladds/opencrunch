@@ -11,6 +11,7 @@ from django.template import loader
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.http.response import JsonResponse
+from django.db.models.query_utils import Q
 
 from ..models import Entity, Charge, Transaction, Category
 from ..forms import ChargeForm, TransactionForm, UploadFileForm
@@ -118,6 +119,20 @@ class ChargesDump(LoginRequiredMixin, View):
         return HttpResponse(render(request, 'ocaccounts/charges-dump.html', {
             'all' : Charge.objects.all().order_by('-dateMade', 'id'),
             'form' : UploadFileForm(),
+        }))
+
+class ChargesList(LoginRequiredMixin, View):
+    def get(self, request):
+        query = Q()
+
+        catId = int(request.GET.get('category', '0'))
+        if(catId > 0): query |= Q(category=catId)
+
+
+        return HttpResponse(render(request, 'ocaccounts/charges-list.html', {
+            'all' : Charge.objects.filter(query).order_by('-dateMade', 'id'),
+            'show_trans' : False,
+            'show_gift' : False,
         }))
         
 class ChargesDumpCSV(LoginRequiredMixin, View):

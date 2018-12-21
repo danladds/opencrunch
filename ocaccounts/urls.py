@@ -4,7 +4,7 @@ from ocaccounts.views import Dashboard, Entities, Categories, EntityAccount, Rep
 from django.urls.conf import include
 from ocaccounts.views.charges import NewChargeSuccess, NewCharge, NewTransaction,\
     DeleteSuccess, DeleteCharge, ImportStatement, NewTransactionSuccess,\
-    ChargesDump, ChargesDumpCSV, ChargesImportCSV
+    ChargesDump, ChargesDumpCSV, ChargesImportCSV, ChargesList
 from ocaccounts.views.categories import CategoriesDump, CategoriesDumpCSV,\
     CategoriesImportCSV, NewCategory, DeleteCategory, EditCategory
 from ocaccounts.views.entities import EntitiesDumpCSV, EntitiesImportCSV
@@ -39,6 +39,7 @@ urlpatterns = [
     path('payment/new/', NewTransaction.as_view(), name='newpayment'),
     path('payment/new/success/<int:pk>/', NewTransactionSuccess.as_view(), name='newpaymentsuccess'),
     path('charges/dump/', ChargesDump.as_view(), name='chargesdump'),
+    path('charges/list/', ChargesList.as_view(), name='chargeslist'),
     path('charges/import/csv/', ChargesImportCSV.as_view(), name="chargesimportcsv"),
     path('charges/dump/csv/', ChargesDumpCSV.as_view(), name='chargesdumpcsv'),
 

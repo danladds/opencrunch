@@ -17,7 +17,7 @@ var Opencrunch = {
 						autoOpen: false,
 						modal: true,
 						resizable: false,
-						width: Opencrunch.Utils.em2px(40)
+						width: Opencrunch.Utils.em2px(60)
 					});
 				},
 				
