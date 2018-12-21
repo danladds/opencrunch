@@ -71,6 +71,25 @@ var Opencrunch = {
 				Opencrunch.Window.Modal.loadContent(e.currentTarget.href, null, e.currentTarget.title);
 			},
 			
+			categoryDeleteClick : function (e) {
+
+        if (confirm("Do you really want to delete this?")) {
+
+	  					elem = $(e.target)
+
+	  	  			$.ajax({
+							url: '/category/' + elem.attr('cid') + '/delete/',
+							type: 'POST',
+							beforeSend: function(xhr) {
+						        xhr.setRequestHeader("X-CSRFToken", Opencrunch.Utils.getCookie("csrftoken"));
+						    },
+							success: function(result) {
+								$('tr.cat_' + elem.attr('cid')).remove();
+							}
+						});
+	  			}
+			},
+
 			chargeDeleteClick : function (e){
 	  				
 	  				e.preventDefault();
@@ -80,10 +99,10 @@ var Opencrunch = {
 	  					elem = $(e.target).parent().parent()
 	  					
 	  	  				$.ajax({
-							url: '/charge/delete/' + elem.data('id') + '/',
+							url: '/charge/' + elem.data('id') + '/delete/',
 							type: 'POST',
 							beforeSend: function(xhr) {
-						        xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+						        xhr.setRequestHeader("X-CSRFToken", Opencrunch.Utils.getCookie("csrftoken"));
 						    },
 							success: function(result) {
 								elem.remove();
@@ -96,10 +115,10 @@ var Opencrunch = {
 								Opencrunch.Entities.getHistory(Opencrunch.Entities.activeEntity);
 							}
 						});
-	  				}
+	  			}
 			},
 		},
-			
+
 		Categories : {
 			
 			/**
@@ -113,15 +132,17 @@ var Opencrunch = {
 					$(item).progressbar({
 						value: a,
 					})
+
+					$(item).find('.category-delete').click(Opencrunch.Events.categoryDeleteClick);
 				})
 			},
 		},
-		
+
 		Entities : {
 			
 			historyTempalate : null,
 			activeEntity : null,
-			
+
 			Init : function() {
 				
 				if($('.entities-history-template').length) {
@@ -135,19 +156,19 @@ var Opencrunch = {
 				  	});
 				}
 			},
-		
+
 			getHistory : function(eid) {
 				
 				this.activeEntity = eid;
 				
 				$('#entities-history').hide();
 		  		$('.entities-history-template').remove();
-				
+
 		  		Opencrunch.Charges.forEntity(eid, this.fillHistory);
 			},
 			
 			fillHistory: function(data) {
-				
+
 				$('.contact-list li.id_' + entityId).find('.ent-bal').text(data.balance + ' €');
 				
 				$.each(data.items, function(index, charge) {
@@ -156,19 +177,19 @@ var Opencrunch = {
 	  				fields = [charge.date, charge.description, charge.quantity, charge.category, charge.balance]
 	  				
 	  				t.data('id', charge.id);
-	  				
+
 	  				t.children().each(function(idx, elem){
 	  					
 	  					$(elem).text(
 	  						fields[idx]
 	  					);
 	  				});
-	  				
+
 	  	  			$('#entities-history table').append(t);
 	  	  			
 	  	  			t.find('.charge-delete').click(Opencrunch.Events.chargeDeleteClick);
 				});
-				
+
 				$('#entities-history').show();
 			},
 		},
@@ -187,9 +208,9 @@ var Opencrunch = {
 				var ca = document.cookie.split(';');
 				
 				for(var i = 0; i < ca.length; i++) {
-					
+
 					var c = ca[i];
-					
+
 					while (c.charAt(0) == ' ') {
 						c = c.substring(1);
 					}

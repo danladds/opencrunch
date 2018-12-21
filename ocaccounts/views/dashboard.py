@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template import loader
 from django.urls import reverse_lazy
-from ocaccounts.models.fundamentals import Entity, Category
+from ..models import Entity, Category
 from decimal import Decimal, ROUND_UP
 
 class Dashboard(LoginRequiredMixin, View):

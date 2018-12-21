@@ -1,18 +1,32 @@
+import csv
+import json
+from io import StringIO
+from datetime import datetime
+
 from django.shortcuts import render, get_object_or_404
 from django.views import generic, View
-from django.views.generic.edit import UpdateView, CreateView
+from django.views.generic.edit import UpdateView, CreateView, DeleteView
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template import loader
 from django.urls import reverse_lazy
-from ocaccounts.models.fundamentals import Category, Charge, Transaction
-from datetime import datetime
 from django.db.models.query_utils import Q
 from django.db.models.aggregates import Sum
-import csv
-from ocaccounts.forms.charges import UploadFileForm
-import json
-from io import StringIO
+
+from ..models import Category, Charge, Transaction
+from ..forms.charges import UploadFileForm
+from ..forms.categories import CategoryForm
+
+class NewCategory(LoginRequiredMixin, CreateView):
+    form_class = CategoryForm
+    template_name = 'ocaccounts/newcategory.html'
+    success_url = reverse_lazy('ocaccounts:categories')
+
+class EditCategory(LoginRequiredMixin, UpdateView):
+    form_class = CategoryForm
+    model = Category
+    template_name = 'ocaccounts/editcategory.html'
+    success_url = reverse_lazy('ocaccounts:categories')
 
 class Categories(LoginRequiredMixin, View):
     def get(self, request):
@@ -80,4 +94,10 @@ class CategoriesImportCSV(LoginRequiredMixin, View):
         return HttpResponse(out)
         
         
-        
+class DeleteCategory(DeleteView):
+    model = Category
+    success_url = reverse_lazy('ocaccounts:deletesuccess')
+
+    def delete(self, request, *args, **kwargs):
+
+        return super(DeleteCategory, self).delete(request, *args, **kwargs)

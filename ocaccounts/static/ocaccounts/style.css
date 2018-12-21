@@ -492,6 +492,7 @@ body .ui-dialog input, select, textarea {
 #category-wrap {
   width: 70%;
   margin: 1em auto;
+  padding-top: 1em;
 }
 
 #category-wrap h3 {
@@ -499,3 +500,15 @@ body .ui-dialog input, select, textarea {
   width: 100%;
   border-bottom: 2px solid black;
 }
+
+#category-wrap a.btn {
+  float: right;
+}
+
+.cat-bar-edit span.ui-icon {
+  margin-right: 0.2em;
+  margin-top: 2px;
+  cursor: pointer;
+  float: none;
+}
+

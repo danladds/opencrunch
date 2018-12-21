@@ -8,14 +8,21 @@
 
 {% block topcontent %}
 <div id="category-wrap">
+<a class="btn modal" href="{% url 'ocaccounts:newcategory' %}" title="New Category">New Category</a>
 <h3>This Week</h3>
 <table class="categories-list">
 	{% for c in category_week %}
-	<tr>
+	<tr class="cat_{{ c.id }}">
 		<td>
 			<div id="percent-{{ c.id }}" class="cat-percent">
 				<div id="percent-{{ c.id }}-label" class="cat-label" percent="{{ c.spendPercentCapped }}">{{ c.name }}
-				<span>{{ c.getSpend }} € of {{ c.budget }} ({{ c.remainingBudget }} € remaining)</span></div>
+				  <span class="cat-bar-edit">
+			      <span class="ui-icon ui-icon-calendar category-items"></span>
+			      <a class="ui-icon ui-icon-pencil category-edit modal" title="Edit Category" href="{% url 'ocaccounts:editcategory' c.id %}"></a>
+			      <span class="ui-icon ui-icon-trash category-delete" cid="{{ c.id }}"></span>
+			    </span>
+				  <span class="cat-bar-text">{{ c.getSpend }} € of {{ c.budget }} ({{ c.remainingBudget }} € remaining)</span>
+			  </div>
 			</div>
 			</td>
 	</tr>
@@ -25,12 +32,17 @@
 <h3>This Month</h3>
 <table class="categories-list">
 	{% for c in category_month %}
-	<tr>
+	<tr class="cat_{{ c.id }}">
 		<td>
 			<div id="percent-{{ c.id }}" class="cat-percent">
 				<div id="percent-{{ c.id }}-label" class="cat-label" percent="{{ c.spendPercentCapped }}">{{ c.name }}
-				<span>{{ c.getSpend }} € of {{ c.budget }} ({{ c.remainingBudget }} € remaining)</span></div>
-			</div>
+				  <span class="cat-bar-edit">
+			      <span class="ui-icon ui-icon-calendar category-items"></span>
+			      <a class="ui-icon ui-icon-pencil category-edit modal" title="Edit Category" href="{% url 'ocaccounts:editcategory' c.id %}"></a>
+			      <span class="ui-icon ui-icon-trash category-delete" cid="{{ c.id }}"></span>
+			    </span>
+				  <span class="cat-bar-text">{{ c.getSpend }} € of {{ c.budget }} ({{ c.remainingBudget }} € remaining)</span>
+			  </div>
 			</td>
 	</tr>
 	{% endfor %}
@@ -39,12 +51,17 @@
 <h3>This Year</h3>
 <table class="categories-list">
 	{% for c in category_year %}
-	<tr>
+	<tr class="cat_{{ c.id }}">
 		<td>
 			<div id="percent-{{ c.id }}" class="cat-percent">
 				<div id="percent-{{ c.id }}-label" class="cat-label" percent="{{ c.spendPercentCapped }}">{{ c.name }}
-				<span>{{ c.getSpend }} € of {{ c.budget }} ({{ c.remainingBudget }} € remaining)</span></div>
-			</div>
+				  <span class="cat-bar-edit">
+			      <span class="ui-icon ui-icon-calendar category-items"></span>
+			      <a class="ui-icon ui-icon-pencil category-edit modal" title="Edit Category" href="{% url 'ocaccounts:editcategory' c.id %}"></a>
+			      <span class="ui-icon ui-icon-trash category-delete" cid="{{ c.id }}"></span>
+			    </span>
+				  <span class="cat-bar-text">{{ c.getSpend }} € of {{ c.budget }} ({{ c.remainingBudget }} € remaining)</span>
+			  </div>
 			</td>
 	</tr>
 	{% endfor %}
