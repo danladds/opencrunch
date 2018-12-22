@@ -5,7 +5,7 @@
 	  <p class="ui-state-error">{{ error_message }}</p>
 	{% endif %}
 	
-	<form action="{% url 'ocaccounts:newpurchase' %}" method="post">
+	<form action="{% url 'ocaccounts:newpurchase' %}" method="post" class="modal">
 	{% csrf_token %}
 	<table>
 		{{ form.as_table }}

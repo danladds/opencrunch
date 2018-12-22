@@ -43,12 +43,14 @@ var Opencrunch = {
 					this.modal.find("input[type=submit]").button();
 					this.modal.find("#id_dateMade").attr('type', 'date');
 					
-					modal.find("form").submit(function(e) {
+					this.modal.find("form.modal").submit(function(e) {
 						
 						e.preventDefault();
-						var form = modal.find('form');
+						var form = Opencrunch.Window.Modal.modal.find('form');
 						var url = form.attr('action')
 						var data = form.serialize();
+
+						Opencrunch.Window.Modal.loadContent(url, data, title);
 					});
 				},
 			},
