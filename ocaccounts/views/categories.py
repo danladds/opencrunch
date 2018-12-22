@@ -47,7 +47,7 @@ class OutOfBudget(View):
             'charges': Charge.objects.filter(Q(category=None), \
                                             Q(dateMade__month=datetime.now().month), \
                                             ~Q(instance_of=Transaction), \
-                                            Q(gift=False))
+                                            Q(gift=False)).order_by('-dateMade')
         }))
         
 class CategoriesDump(LoginRequiredMixin, View):
