@@ -28,6 +28,19 @@
 			<li class="dash-tasks-statement">
 				<a href="{% url 'ocaccounts:importstatement' %}" class="modal" title="Import Statement">
 					<span class="ui-icon ui-icon-file-table"></span>Import Statement</a>
+			    <div class="import-statement">
+	            {% if form.errors %}
+	              <p class="ui-state-error">{{ error_message }}</p>
+	            {% endif %}
+
+              <form action="{% url 'ocaccounts:importstatement' %}" method="post" enctype="multipart/form-data" class="modal">
+	              {% csrf_token %}
+	              <table>
+		              {{ form.as_table }}
+	              </table>
+		            <input type="submit" value="Import Cajamar CSV File" />
+	            </form>
+            </div>
 			</li>
 		</ul>
 	</div>

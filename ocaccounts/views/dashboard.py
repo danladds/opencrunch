@@ -7,6 +7,7 @@ from django.template import loader
 from django.urls import reverse_lazy
 from ..models import Entity, Category
 from decimal import Decimal, ROUND_UP
+from ..forms import UploadFileForm
 
 class Dashboard(LoginRequiredMixin, View):
     def get(self, request):
@@ -28,5 +29,6 @@ class Dashboard(LoginRequiredMixin, View):
         
         return HttpResponse(render(request, 'ocaccounts/dashboard.html', {
             'safespend' : remainingBudget.quantize(Decimal('0'), rounding=ROUND_UP), 
-            'totalbalance' : totalbalance
+            'totalbalance' : totalbalance,
+            'form' : UploadFileForm(),
         }))
