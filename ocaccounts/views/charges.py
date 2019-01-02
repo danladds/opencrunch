@@ -278,7 +278,7 @@ class ChargesImportCajamarCSVSave(LoginRequiredMixin, View):
                 obj.gift = True
 
             obj.description = request.POST['description_{0}'.format(c)]
-            obj.source = Entity.objects.get(pk=1)
+            obj.source = Entity.objects.get(name='Cajamar')
             obj.quantity = Decimal(request.POST['amount_{0}'.format(c)])
 
             dateParts = request.POST['dateMade_{0}'.format(c)].split('-')
