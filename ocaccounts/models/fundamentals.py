@@ -34,6 +34,7 @@ class Category(Model):
     name = CharField(max_length=255)
     budget = DecimalField(max_digits=10, decimal_places=2)
     budgetPeriod = CharField(max_length=1, choices=BUDGET_PERIODS)
+    fixed = BooleanField(default=False)
 
     def getSpend(self, period=''):
         period = self.budgetPeriod if (period == '') else period

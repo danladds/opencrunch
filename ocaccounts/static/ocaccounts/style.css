@@ -273,6 +273,7 @@ textarea {
 #entities-history table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 0.8em;
 }
 
 #entities-history table tr th {
@@ -520,19 +521,4 @@ body .ui-dialog input, select, textarea {
   padding: 0.4em;
 }
 
-table#importstatement {
-  width: 100%;
-  border-collapse: collapse;
-}
 
-table#importstatement tr td:nth-child(2) input {
-  width: 30em;
-}
-
-table#importstatement tr td:nth-child(3) select {
-  width: 20em;
-}
-
-table#importstatement tr td:nth-child(4) input {
-  width: 8em;
-}

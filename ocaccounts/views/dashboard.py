@@ -22,6 +22,8 @@ class Dashboard(LoginRequiredMixin, View):
         
         for category in Category.objects.all():
             if (category.budgetPeriod == 'L'): continue
+            if (category.budgetPeriod == 'Y'): continue
+            if (category.fixed == True): continue
             totalBudget = category.scaleBudget(('M')) + totalBudget
             totalSpend = category.getSpend('M') + totalSpend
             

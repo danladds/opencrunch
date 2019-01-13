@@ -225,6 +225,8 @@ class ChargesImportCajamarCSV(LoginRequiredMixin, View):
             # Attempt match
             self.matches = Charge.objects.filter(Q(quantity=self.amount) & Q(dateMade=self.dateObj) &Q(source__name='Cajamar'))
 
+            # TODO: Need to do sink matches
+
     def post(self, request):
         form = UploadFileForm(request.POST, request.FILES)
         data = ''
@@ -267,6 +269,8 @@ class ChargesImportCajamarCSVSave(LoginRequiredMixin, View):
         count = int(request.POST['count'])
         items = []
 
+        # TODO: invert source-sink for repayments
+
         for c in range(0, count):
             obj = Charge()
             sinkId = int(request.POST['sink_{0}'.format(c)])
@@ -288,5 +292,7 @@ class ChargesImportCajamarCSVSave(LoginRequiredMixin, View):
 
         for item in items:
             item.save()
+
+        # TODO: Update balances here
 
         return HttpResponse('Done')
