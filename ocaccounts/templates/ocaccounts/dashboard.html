@@ -5,7 +5,9 @@
 {% block leftcontent %}
 	<div id="dash-stats" class="box">
 		<table>
-			<tr class="dash-stats-budget"><th>Monthly Budget Remaining:</th><td>{{ safespend }} €</td></tr>
+			<tr class="dash-stats-budget"><th>Safe Spend:</th><td>{{ safespend }} €</td></tr>
+		  <tr class="dash-stats-balance"><th>Pre-Committed Spend:</th><td>{{ precom }} €</td></tr>
+		  <tr class="dash-stats-budget"><th>Total Monthly Budget Remaining:</th><td>{{ budgetr }} €</td></tr>
 			<tr class="dash-stats-balance"><th>Total Balance:</th><td>{{ totalbalance }} €</td></tr>
 		</table>
 	</div>

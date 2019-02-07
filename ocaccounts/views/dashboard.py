@@ -16,6 +16,8 @@ class Dashboard(LoginRequiredMixin, View):
         totalBudget = Decimal('0.00')
         totalSpend = Decimal('0.00')
         remainingBudget = Decimal('0.00')
+        safeSpend = Decimal('0.00')
+        precom = Decimal('0.00')
         
         for entity in Entity.objects.all():
             totalbalance = totalbalance + entity.balance
@@ -23,14 +25,19 @@ class Dashboard(LoginRequiredMixin, View):
         for category in Category.objects.all():
             if (category.budgetPeriod == 'L'): continue
             if (category.budgetPeriod == 'Y'): continue
-            if (category.fixed == True): continue
-            totalBudget = category.scaleBudget(('M')) + totalBudget
-            totalSpend = category.getSpend('M') + totalSpend
+            if (category.fixed == True):
+                precom = category.scaleBudget(('M')) + precom
+
+            else:
+                totalBudget = category.scaleBudget(('M')) + totalBudget
+                totalSpend = category.getSpend('M') + totalSpend
             
         remainingBudget = totalBudget - totalSpend
         
         return HttpResponse(render(request, 'ocaccounts/dashboard.html', {
             'safespend' : remainingBudget.quantize(Decimal('0'), rounding=ROUND_UP), 
+            'precom' : precom.quantize(Decimal('0'), rounding=ROUND_UP),
+            'budgetr' : (remainingBudget + precom).quantize(Decimal('0'), rounding=ROUND_UP),
             'totalbalance' : totalbalance,
             'form' : UploadFileForm(),
         }))
