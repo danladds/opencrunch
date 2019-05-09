@@ -7,7 +7,7 @@ from ..models import Charge, Entity, Invoice, Transaction
 
 # Add / edit charge (purchase)
 class ChargeForm(ModelForm):
-    source = forms.ModelChoiceField(queryset=Entity.objects.all().order_by('-fav', 'name'), label='Where From')
+    source = forms.ModelChoiceField(queryset=Entity.objects.all().order_by('-fav', 'name'), label='De Donde')
 
     class Meta:
         model = Charge
@@ -24,8 +24,8 @@ class ChargeForm(ModelForm):
 
 # Add / edit transaction (payment)
 class TransactionForm(ModelForm):
-    source = forms.ModelChoiceField(queryset=Entity.objects.all().order_by('-fav', 'name'), label='Where From')
-    sink = forms.ModelChoiceField(queryset=Entity.objects.all().order_by('-fav', 'name'), label='Where To')
+    source = forms.ModelChoiceField(queryset=Entity.objects.all().order_by('-fav', 'name'), label='De Donde')
+    sink = forms.ModelChoiceField(queryset=Entity.objects.all().order_by('-fav', 'name'), label='A Donde')
 
     class Meta:
         model = Transaction
