@@ -13,10 +13,10 @@ class ChargeForm(ModelForm):
         model = Charge
         fields = ('dateMade', 'source', 'description', 'category', 'quantity')
         labels = {
-            'dateMade' : 'Date',
-            'description' : 'What For',
-            'category' : 'Category',
-            'quantity' : 'Amount'
+            'dateMade' : 'Fecha',
+            'description' : 'Por',
+            'category' : 'Categoría',
+            'quantity' : 'Cantidad'
         }
         widgets = {
             'dateMade': DateInput(),
@@ -31,9 +31,9 @@ class TransactionForm(ModelForm):
         model = Transaction
         fields = ('dateMade', 'source', 'sink', 'description', 'quantity')
         labels = {
-            'dateMade' : 'Date',
-            'description' : 'Description',
-            'quantity': 'Amount'
+            'dateMade' : 'Fecha',
+            'description' : 'Por',
+            'quantity': 'Cantidad'
         }
         widgets = {
             'dateMade': DateInput(),

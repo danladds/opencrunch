@@ -1,6 +1,6 @@
 {% extends "ocaccounts/outer.html" %}
 
-{% block title %}Budget / Category List : Opencruch{% endblock %}
+{% block title %}Pre : Opencruch{% endblock %}
 
 {% block leftcontent %}
 
@@ -9,7 +9,7 @@
 {% block topcontent %}
 <div id="category-wrap">
 <a class="btn modal" href="{% url 'ocaccounts:newcategory' %}" title="New Category">New Category</a>
-<h3>This Week</h3>
+<h3>Ésta Semana</h3>
 <table class="categories-list">
 	{% for c in category_week %}
 	<tr class="cat_{{ c.id }}">
@@ -21,7 +21,7 @@
 			      <a class="ui-icon ui-icon-pencil category-edit modal" title="Edit Category" href="{% url 'ocaccounts:editcategory' c.id %}"></a>
 			      <span class="ui-icon ui-icon-trash category-delete" cid="{{ c.id }}"></span>
 			    </span>
-				  <span class="cat-bar-text">{{ c.getSpend }} € of {{ c.budget }} ({{ c.remainingBudget }} € remaining)</span>
+				  <span class="cat-bar-text">{{ c.getSpend }} € of {{ c.budget }} ({{ c.remainingBudget }} € restante)</span>
 			  </div>
 			</div>
 			</td>
@@ -29,7 +29,7 @@
 	{% endfor %}
 </table>
 
-<h3>This Month</h3>
+<h3>Éste mes</h3>
 <table class="categories-list">
 	{% for c in category_month %}
 	<tr class="cat_{{ c.id }}">
@@ -41,14 +41,14 @@
 			      <a class="ui-icon ui-icon-pencil category-edit modal" title="Edit Category" href="{% url 'ocaccounts:editcategory' c.id %}"></a>
 			      <span class="ui-icon ui-icon-trash category-delete" cid="{{ c.id }}"></span>
 			    </span>
-				  <span class="cat-bar-text">{{ c.getSpend }} € of {{ c.budget }} ({{ c.remainingBudget }} € remaining)</span>
+				  <span class="cat-bar-text">{{ c.getSpend }} € of {{ c.budget }} ({{ c.remainingBudget }} € restante)</span>
 			  </div>
 			</td>
 	</tr>
 	{% endfor %}
 </table>
 
-<h3>This Year</h3>
+<h3>Éste Año</h3>
 <table class="categories-list">
 	{% for c in category_year %}
 	<tr class="cat_{{ c.id }}">
@@ -60,7 +60,7 @@
 			      <a class="ui-icon ui-icon-pencil category-edit modal" title="Edit Category" href="{% url 'ocaccounts:editcategory' c.id %}"></a>
 			      <span class="ui-icon ui-icon-trash category-delete" cid="{{ c.id }}"></span>
 			    </span>
-				  <span class="cat-bar-text">{{ c.getSpend }} € of {{ c.budget }} ({{ c.remainingBudget }} € remaining)</span>
+				  <span class="cat-bar-text">{{ c.getSpend }} € of {{ c.budget }} ({{ c.remainingBudget }} € restante)</span>
 			  </div>
 			</td>
 	</tr>

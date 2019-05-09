@@ -22,6 +22,10 @@
     <td><a href="{% url 'ocaccounts:chargesdump' %}">Charge Table</a></td>
     <td>View or download full list of charges and transactions</td>
   </tr>
+  <tr>
+    <td><a href="{% url 'ocaccounts:monthlyreport' 1 %}">Monthly Report</a></td>
+    <td>View a report for a specific month</td>
+  </tr>
 </table>
 {% endblock topcontent %}
 

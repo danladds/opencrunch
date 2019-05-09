@@ -94,10 +94,15 @@ class CategoriesImportCSV(LoginRequiredMixin, View):
         return HttpResponse(out)
         
         
-class DeleteCategory(DeleteView):
+class DeleteCategory(LoginRequiredMixin, DeleteView):
     model = Category
     success_url = reverse_lazy('ocaccounts:deletesuccess')
 
     def delete(self, request, *args, **kwargs):
 
         return super(DeleteCategory, self).delete(request, *args, **kwargs)
+
+class MonthlyReport(LoginRequiredMixin, View):
+    def get(self, request):
+        pass
+    

@@ -7,7 +7,7 @@ from ocaccounts.views.charges import NewChargeSuccess, NewCharge, NewTransaction
     ChargesDump, ChargesDumpCSV, ChargesImportCSV, ChargesList, ChargesImportCajamarCSV, \
     ChargesImportCajamarCSVSave
 from ocaccounts.views.categories import CategoriesDump, CategoriesDumpCSV,\
-    CategoriesImportCSV, NewCategory, DeleteCategory, EditCategory
+    CategoriesImportCSV, NewCategory, DeleteCategory, EditCategory, MonthlyReport
 from ocaccounts.views.entities import EntitiesDumpCSV, EntitiesImportCSV
 
 app_name = 'ocaccounts'
@@ -16,6 +16,7 @@ urlpatterns = [
     path('authentication/', include('django.contrib.auth.urls')),
     path('', Dashboard.as_view(), name='dashboard'),
     path('reports/', Reports.as_view(), name='reports'),
+    path('reports/monthly/<int:index>/', MonthlyReport.as_view(), name='monthlyreport'),
     path('statement/import/', ChargesImportCajamarCSV.as_view(), name='importstatement'),
     path('statement/import/save/', ChargesImportCajamarCSVSave.as_view(), name='importstatementsave'),
 

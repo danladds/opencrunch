@@ -1,14 +1,14 @@
 {% extends "ocaccounts/outer.html" %}
 
-{% block title %}Dashboard : Opencruch{% endblock %}
+{% block title %}Tablero de Control : Opencruch{% endblock %}
 
 {% block leftcontent %}
 	<div id="dash-stats" class="box">
 		<table>
-			<tr class="dash-stats-budget"><th>Safe Spend:</th><td>{{ safespend }} €</td></tr>
-		  <tr class="dash-stats-balance"><th>Pre-Committed Spend:</th><td>{{ precom }} €</td></tr>
-		  <tr class="dash-stats-budget"><th>Total Monthly Budget Remaining:</th><td>{{ budgetr }} €</td></tr>
-			<tr class="dash-stats-balance"><th>Total Balance:</th><td>{{ totalbalance }} €</td></tr>
+			<tr class="dash-stats-budget"><th>Disponible:</th><td>{{ safespend }} €</td></tr>
+		  <tr class="dash-stats-balance"><th>Comprometido:</th><td>{{ precom }} €</td></tr>
+		  <tr class="dash-stats-budget"><th>Total Mensual Que Queda:</th><td>{{ budgetr }} €</td></tr>
+			<tr class="dash-stats-balance"><th>Total Dinero:</th><td>{{ totalbalance }} €</td></tr>
 		</table>
 	</div>
 	<div id="dash-budgets">
@@ -21,15 +21,15 @@
 		<ul class="blockmenu">
 			<li class="dash-tasks-purchase">
 				<a href="{% url 'ocaccounts:newpurchase' %}" class="modal" title="New Purchase">
-					<span class="ui-icon ui-icon-box"></span>New Purchase</a>
+					<span class="ui-icon ui-icon-box"></span>Nueva Compra</a>
 			</li>
 			<li class="dash-tasks-payment">
 				<a href="{% url 'ocaccounts:newpayment' %}" class="modal" title="New Payment">
-					<span class="ui-icon ui-icon-creditcard"></span>New Payment</a>
+					<span class="ui-icon ui-icon-creditcard"></span>Nuevo Pago</a>
 			</li>
 			<li class="dash-tasks-statement">
 				<a href="{% url 'ocaccounts:importstatement' %}" class="modal" title="Import Statement">
-					<span class="ui-icon ui-icon-file-table"></span>Import Statement</a>
+					<span class="ui-icon ui-icon-file-table"></span>Importa Extracto</a>
 			    <div class="import-statement">
 	            {% if form.errors %}
 	              <p class="ui-state-error">{{ error_message }}</p>
@@ -40,7 +40,7 @@
 	              <table>
 		              {{ form.as_table }}
 	              </table>
-		            <input type="submit" value="Import Cajamar CSV File" />
+		            <input type="submit" value="Importa CSV Cajamar" />
 	            </form>
             </div>
 			</li>

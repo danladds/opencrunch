@@ -25,12 +25,12 @@
 	<div id="modal"></div>
     <div class="overwrap clearfix">
 	    <menu class="top-menu clearfix">
-	    	<p>Welcome back, {{ user.first_name }} <a href="{% url 'ocaccounts:logout' %}">Logout</a></p>
+	    	<p>Bienvenido de Vuelta, {{ user.first_name }} <a href="{% url 'ocaccounts:logout' %}">Logout</a></p>
 	        <ul class="clearfix">
-	            <li><a href="{% url 'ocaccounts:dashboard' %}"><span class="ui-icon ui-icon-home"></span>Dashboard</a></li>
-	            <li><a href="{% url 'ocaccounts:entities' %}"><span class="ui-icon ui-icon-calculator"></span>Balances</a></li>
-	            <li><a href="{% url 'ocaccounts:categories' %}"><span class="ui-icon ui-icon-calendar"></span>Budgets</a></li>
-	            <li><a href="{% url 'ocaccounts:reports' %}"><span class="ui-icon ui-icon-chart-bars"></span>Reports</a></li>
+	            <li><a href="{% url 'ocaccounts:dashboard' %}"><span class="ui-icon ui-icon-home"></span>Tablero</a></li>
+	            <li><a href="{% url 'ocaccounts:entities' %}"><span class="ui-icon ui-icon-calculator"></span>Saldos</a></li>
+	            <li><a href="{% url 'ocaccounts:categories' %}"><span class="ui-icon ui-icon-calendar"></span>Presupuestos</a></li>
+	            <li><a href="{% url 'ocaccounts:reports' %}"><span class="ui-icon ui-icon-chart-bars"></span>Informes</a></li>
 	        </ul>
 	    </menu>
 	    <div id="toppane" class="clearfix">{% block topcontent %}{% endblock topcontent %}</div>
