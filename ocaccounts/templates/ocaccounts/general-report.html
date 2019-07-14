@@ -24,7 +24,7 @@
 			      <a class="ui-icon ui-icon-pencil category-edit modal" title="Edit Category" href="{% url 'ocaccounts:editcategory' c.id %}"></a>
 			      <span class="ui-icon ui-icon-trash category-delete" cid="{{ c.id }}"></span>
 			    </span>
-				  <span class="cat-bar-text">{{ c.getGRSpend }} € of {{ c.getGRBudget }}</span>
+				  <span class="cat-bar-text">{{ c.getGRSpend }}€ ({{ c.getGRBudget }}€ budget total)</span>
 			  </div>
 			</td>
 	</tr>
