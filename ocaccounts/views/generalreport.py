@@ -12,6 +12,7 @@ from django.template import loader
 from django.urls import reverse_lazy
 from django.db.models.query_utils import Q
 from django.db.models.aggregates import Sum
+from decimal import Decimal
 
 from ..models import Category, Charge, Transaction
 
@@ -30,5 +31,5 @@ class GeneralReport(LoginRequiredMixin, View):
             'category_month': Category.objects.order_by('name'),
             'total_spend': round(charges.aggregate(Sum('quantity'))['quantity__sum'], 2),
             'eob_spend': round(eob_total, 2),
-            'eob_pc': round(eob_total / Decimal('70.00'), 2),
+            'eob_pc': eob_total / Decimal('70.00'),
         }))
