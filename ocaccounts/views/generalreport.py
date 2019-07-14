@@ -18,7 +18,7 @@ from ..models import Category, Charge, Transaction
 class GeneralReport(LoginRequiredMixin, View):
     def get(self, request):
 
-        charges = Charge.objects.filter(~Q(instance_of=Transaction), Q(gift=False))
+        charges = Charge.objects.filter(~Q(instance_of=Transaction), Q(gift=False), Q(dateMade__range=["2018-12-01", "2019-06-30"]))
 
         return HttpResponse(render(request, 'ocaccounts/general-report.html', {
             'category_month': Category.objects.order_by('name'),

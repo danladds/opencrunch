@@ -36,6 +36,21 @@ class Category(Model):
     budgetPeriod = CharField(max_length=1, choices=BUDGET_PERIODS)
     fixed = BooleanField(default=False)
 
+    def getGRSpend(self):
+        total = self.charge_set.instance_of(Charge).filter(dateMade__range=["2018-12-01", "2019-06-30"]).aggregate(Sum('quantity'))['quantity__sum']
+
+        return total if total is not None else 0
+
+    def getGRBudget(self):
+        budget = self.budget
+
+        if(self.budgetPeriod == 'M'): budget = budget * Decimal('7.00')
+        if(self.budgetPeriod == 'W'): budget = budget * Decimal('31.00')
+        if(self.budgetPeriod == 'D'): budget = budget * Decimal('220.00')
+        if(self.budgetPeriod == 'Y'): budget = budget * Decimal('0.416666667')
+
+        return budget
+
     def getSpend(self, period=''):
         period = self.budgetPeriod if (period == '') else period
         total = dict(self.PERIOD_FILTERS)[period](self).aggregate(Sum('quantity'))['quantity__sum']
