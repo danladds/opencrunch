@@ -99,7 +99,7 @@ class Category(Model):
     def spendGRProportion(self):
         spend = self.getGRSpend()
 
-        return spend / Decimal('7.00')
+        return spend / Decimal('70.00')
 
     def __str__(self):
         return self.name
