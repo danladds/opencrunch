@@ -14,7 +14,7 @@ from django.db.models.query_utils import Q
 from django.db.models.aggregates import Sum
 from decimal import Decimal
 
-from ..models import Category, Charge, Transaction
+from ..models import Category, Charge, Transaction, Entity
 
 class GeneralReport(LoginRequiredMixin, View):
     def get(self, request):
@@ -27,9 +27,11 @@ class GeneralReport(LoginRequiredMixin, View):
                                             Q(gift=False))\
                                             .aggregate(Sum('quantity'))['quantity__sum']
 
+
         return HttpResponse(render(request, 'ocaccounts/general-report.html', {
             'category_month': Category.objects.order_by('name'),
             'total_spend': round(charges.aggregate(Sum('quantity'))['quantity__sum'], 2),
             'eob_spend': round(eob_total, 2),
             'eob_pc': eob_total / Decimal('70.00'),
+            'entities' : Entity.objects.all(),
         }))

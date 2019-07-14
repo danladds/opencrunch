@@ -35,7 +35,14 @@
 </table>
 
 <h3>Spending by Source</h3>
-
+<table>
+  {% for e in entities %}
+  <tr>
+    <td>{{ e.name }}</td>
+    <td>{{ e.getSpend }}</td>
+  </tr>
+  {% endfor %}
+</table>
 
 <script>
 $(function() {

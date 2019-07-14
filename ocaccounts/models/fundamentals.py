@@ -136,6 +136,18 @@ class Entity(PolymorphicModel):
         self.getChargeList()
         self.save()
 
+    def getSpend(self):
+        spend = Decimal('0.00')
+
+        for i in self.getItems():
+            # Only charges, exclude gifts
+            if (isinstance(i, Transaction)):
+                pass
+            elif (i.gift == False):
+                spend = spend + i.quantity
+
+        return spend
+
     def getChargeList(self):
         eList = []
         self.balance = self.openingBal
