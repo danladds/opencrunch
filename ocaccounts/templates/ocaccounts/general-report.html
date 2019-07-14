@@ -19,17 +19,23 @@
 		<td>
 			<div id="percent-{{ c.id }}" class="cat-percent">
 				<div id="percent-{{ c.id }}-label" class="cat-label" percent="{{ c.spendGRProportion }}">{{ c.name }}
-				  <span class="cat-bar-edit">
-			      <a class="ui-icon ui-icon-calendar category-items modal" title="Charges in Category" href="{% url 'ocaccounts:chargeslist' %}?category={{ c.id }}"></a>
-			      <a class="ui-icon ui-icon-pencil category-edit modal" title="Edit Category" href="{% url 'ocaccounts:editcategory' c.id %}"></a>
-			      <span class="ui-icon ui-icon-trash category-delete" cid="{{ c.id }}"></span>
-			    </span>
-				  <span class="cat-bar-text">{{ c.getGRSpend }}€ ({{ c.getGRBudget }}€ budget total)</span>
+				  <span class="cat-bar-text">{{ c.getGRSpend }}€ <!--({{ c.getGRBudget }}€ budget total)--></span>
 			  </div>
 			</td>
 	</tr>
 	{% endfor %}
+	<tr class="eob">
+		<td>
+			<div id="percent-eob" class="cat-percent">
+				<div id="percent-eob-label" class="cat-label" percent="{{ eob_pc }}">Out of Budget
+				  <span class="cat-bar-text">{{ eob_spend }}€</span>
+			  </div>
+			</td>
+	</tr>
 </table>
+
+<h3>Spending by Source</h3>
+
 
 <script>
 $(function() {

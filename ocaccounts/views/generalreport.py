@@ -20,7 +20,15 @@ class GeneralReport(LoginRequiredMixin, View):
 
         charges = Charge.objects.filter(~Q(instance_of=Transaction), Q(gift=False), Q(dateMade__range=["2018-12-01", "2019-06-30"]))
 
+        eob_total = Charge.objects.filter(Q(category=None), \
+                                            Q(dateMade__range=["2018-12-01", "2019-06-30"]), \
+                                            ~Q(instance_of=Transaction), \
+                                            Q(gift=False))\
+                                            .aggregate(Sum('quantity'))['quantity__sum']
+
         return HttpResponse(render(request, 'ocaccounts/general-report.html', {
             'category_month': Category.objects.order_by('name'),
             'total_spend': round(charges.aggregate(Sum('quantity'))['quantity__sum'], 2),
+            'eob_spend': round(eob_total, 2),
+            'eob_pc': round(eob_total / Decimal('70.00'), 2),
         }))
