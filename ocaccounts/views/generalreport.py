@@ -22,5 +22,5 @@ class GeneralReport(LoginRequiredMixin, View):
 
         return HttpResponse(render(request, 'ocaccounts/general-report.html', {
             'category_month': Category.objects.order_by('name'),
-            'total_spend': charges.aggregate(Sum('quantity'))['quantity__sum'],
+            'total_spend': round(charges.aggregate(Sum('quantity'))['quantity__sum'], 2),
         }))

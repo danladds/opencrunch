@@ -49,7 +49,7 @@ class Category(Model):
         if(self.budgetPeriod == 'D'): budget = budget * Decimal('220.00')
         if(self.budgetPeriod == 'Y'): budget = budget * Decimal('0.416666667')
 
-        return budget
+        return round(budget, 2)
 
     def getSpend(self, period=''):
         period = self.budgetPeriod if (period == '') else period
@@ -95,6 +95,11 @@ class Category(Model):
         pc = self.spendPercent(period)
 
         return pc if (pc < 100) else 100
+
+    def spendGRProportion(self):
+        spend = self.getGRSpend()
+
+        return spend / Decimal('7.00')
 
     def __str__(self):
         return self.name
