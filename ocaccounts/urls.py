@@ -1,6 +1,6 @@
 from django.urls import path
 from ocaccounts.views import Dashboard, Entities, Categories, EntityAccount, Reports, OutOfBudget, \
-    EntitiesDump
+    EntitiesDump, GeneralReport
 from django.urls.conf import include
 from ocaccounts.views.charges import NewChargeSuccess, NewCharge, NewTransaction,\
     DeleteSuccess, DeleteCharge, ImportStatement, NewTransactionSuccess,\
@@ -45,5 +45,7 @@ urlpatterns = [
     path('charges/list/', ChargesList.as_view(), name='chargeslist'),
     path('charges/import/csv/', ChargesImportCSV.as_view(), name="chargesimportcsv"),
     path('charges/dump/csv/', ChargesDumpCSV.as_view(), name='chargesdumpcsv'),
+
+    path('general-report/', GeneralReport.as_view(), name='generalreport'),
 
 ]
